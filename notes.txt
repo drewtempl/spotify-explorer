@@ -1,2 +1,4 @@
 play button next to track
 popularity score meter
+send 30s audio clip to open ai, with optional prompt, translate to english
+send album artwork to open ai
