@@ -1,0 +1,2 @@
+play button next to track
+popularity score meter

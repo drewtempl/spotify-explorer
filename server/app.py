@@ -15,3 +15,10 @@ def user():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+@app.route("/top-tracks/<time_range>")
+def top_tracks(time_range):
+    tracks = Spotify.get_top_tracks(20, time_range)
+
+    response = jsonify(tracks)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
