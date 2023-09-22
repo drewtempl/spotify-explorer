@@ -8,14 +8,16 @@ Spotify = spotify.Spotify()
 def hello_world():
     return "<p>Hello, World!</p>"
 
-@app.route("/user")
+@app.route("/api/user")
 def user():
     user = Spotify.get_user()
     response = jsonify(user)
+
+
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-@app.route("/top-tracks/<time_range>")
+@app.route("/api/top-tracks/<time_range>")
 def top_tracks(time_range):
     tracks = Spotify.get_top_tracks(20, time_range)
 

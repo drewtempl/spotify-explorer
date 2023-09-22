@@ -5,7 +5,12 @@ import os
 from dotenv import load_dotenv
 
 
-load_dotenv() 
+load_dotenv()
+
+print(os.environ['CLIENT_ID'],
+      os.environ['CLIENT_SECRET'],
+      os.environ['REDIRECT_URI'],)
+
 
 def get_authorization():
     scope = "user-read-email playlist-modify-public user-library-read user-library-modify user-top-read"

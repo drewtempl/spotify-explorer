@@ -3,6 +3,7 @@ from . import authorization
 
 class Spotify:
     def __init__(self):
+        print('Init!')
         self.sp = authorization.get_authorization()
 
     def get_user(self):
