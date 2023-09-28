@@ -24,3 +24,11 @@ def top_tracks(time_range):
     response = jsonify(tracks)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
+@app.route("/api/create-playlist/<timeframe>/<count>", methods=['POST'])
+def make_playlist(timeframe, count):
+    response = Spotify.create_playlist(timeframe, count)
+
+    response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response

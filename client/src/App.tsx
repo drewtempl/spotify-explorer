@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import Top from './pages/Top';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { AppBar, Button } from '@mui/material';
 
 
 const App = () => {
