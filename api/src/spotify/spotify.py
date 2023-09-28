@@ -3,10 +3,14 @@ from . import authorization
 
 class Spotify:
     def __init__(self):
+        # print('INIT!!!')
         self.sp = authorization.get_authorization()
+        # print(self.sp)
 
     def get_user(self):
+        # print('USER!!!')
         self.user = self.sp.me()
+        print(self.user)
         return self.user
 
     def get_top_tracks(self, limit, time_range):

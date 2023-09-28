@@ -1,13 +1,14 @@
 version: '3'
 services:
   
-  server:
+  api:
     build:
-      context: server
+      context: api
       dockerfile: Dockerfile
-    image: explorer-server
+    image: explorer-api
     ports:
       - '5000:5000'
+    
 
   client:
     build:
@@ -15,5 +16,4 @@ services:
       dockerfile: Dockerfile
     image: explorer-client
     ports:
-      - "3000:80"
-
+      - '3000:80'
