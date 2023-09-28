@@ -13,7 +13,8 @@ export const Home: React.FC<HomeProps> = ({ loginHandler }: HomeProps) => {
 
 
     const getLogin = (): void => {
-        axios.get('http://127.0.0.1:5000/api/user')
+        axios.get('/api/user')
+        // axios.get('http://127.0.0.1:5000/api/user')
             .then(res => {
                 // console.log(res.data);
                 loginHandler(res.data);

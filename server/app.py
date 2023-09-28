@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from src.spotify import spotify
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 Spotify = spotify.Spotify()
 
 @app.route("/")
@@ -10,6 +10,7 @@ def hello_world():
 
 @app.route("/api/user")
 def user():
+    print('HELLO!!!')
     user = Spotify.get_user()
     response = jsonify(user)
 
