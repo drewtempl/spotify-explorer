@@ -1,5 +1,17 @@
 play button next to track
-popularity score meter
+popularity score
 send 30s audio clip to open ai, with optional prompt, translate to english
 send album artwork to open ai
 list of most listened to playlists
+recently listened to tracks
+
+toggle to least listened to
+
+recommendations playlist:
+instrumental
+popularity
+time limit
+bpm
+
+danceability
+energy

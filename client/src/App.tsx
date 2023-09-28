@@ -20,10 +20,8 @@ const App = () => {
   });
 
   const loginHandler = (data: any): void => {
-    // console.log(data)
     setUserData(data);
-    navigate('/top')
-
+    navigate('/top');
   }
 
   return (
