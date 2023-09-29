@@ -1,16 +1,13 @@
-from . import authorization
+from .import authorization
 
 
 class Spotify:
     def __init__(self):
-        # print('INIT!!!')
-        self.sp = authorization.get_authorization()
-        # print(self.sp)
+        self.auth = authorization.Authorization()
+        self.sp = self.auth.get_spotify()
 
     def get_user(self):
-        # print('USER!!!')
         self.user = self.sp.me()
-        print(self.user)
         return self.user
 
     def get_top_tracks(self, limit, time_range):
@@ -34,7 +31,6 @@ class Spotify:
 
         return playlist['external_urls']['spotify']
 
-
     def get_track_ids(self, tracklist):
         ids = []
         for track in tracklist:
@@ -42,3 +38,9 @@ class Spotify:
 
         return ids
 
+    def get_auth_url(self):
+        return self.auth.get_url()
+
+    def set_auth(self, code):
+        token = self.auth.get_access_token(code)
+        self.sp.set_auth(token)

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from src.spotify import spotify
 
 app = Flask(__name__)
@@ -8,12 +8,36 @@ Spotify = spotify.Spotify()
 def hello_world():
     return "<p>Hello, World!</p>"
 
-@app.route("/api/user")
-def user():
-    print('HELLO!!!')
-    user = Spotify.get_user()
+@app.route("/api/login")
+def login():
+    url = Spotify.get_auth_url()
+    response = jsonify(url)
+
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+
+@app.route("/api/auth")
+def auth():
+    code = request.args.get('code')
+    Spotify.set_auth(code)
+
+    # user = Spotify.get_user()
+
+    # print(user)
+
+    return "<script>window.parent.location.reload();window.close()</script>"
+
     response = jsonify(user)
 
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+
+@app.route("/api/user")
+def user():
+    user = Spotify.get_user()
+    response = jsonify(user)
 
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response

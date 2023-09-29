@@ -9,6 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 const App = () => {
   const [userData, setUserData] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
 

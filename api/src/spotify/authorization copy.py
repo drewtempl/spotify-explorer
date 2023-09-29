@@ -27,11 +27,5 @@ class Authorization:
     def get_url(self):
         return self.auth_manager.get_authorize_url()
     
-    def get_spotify(self):
+    def get_auth(self):
         return spotipy.Spotify(self.auth_manager)
-    
-
-    def get_access_token(self, code):
-        token = self.auth_manager.get_access_token(code, as_dict=True, check_cache=False)
-        return token['access_token']
-
