@@ -1,6 +1,16 @@
 # spotify-explorer
 
-## Installation
+
+## Run using Docker
+
+```bash
+docker-compose up --build
+```
+
+
+## Run locally
+
+### In `/api`
 
 Create an environment
 ```bash
@@ -17,8 +27,19 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-## Running the application locally
-
+Run flask server
 ```bash
 flask run
+```
+
+### In `/client`
+
+Install dependencies
+```bash
+npm install
+```
+
+Run client server
+```bash
+npm start
 ```
