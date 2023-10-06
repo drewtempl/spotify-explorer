@@ -14,7 +14,8 @@ export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
 
 
     const getTopTracks = (timeframe: string): void => {
-        axios.get(`http://127.0.0.1:5000/api/top-tracks/${timeframe}`)
+        axios.get(`/api/top-tracks/${timeframe}`)
+        // axios.get(`http://127.0.0.1:5000/api/top-tracks/${timeframe}`)
             .then(res => {
                 console.log(res.data);
                 setTopTracks(res.data.items);
@@ -25,7 +26,8 @@ export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
     }
 
     const createPlaylist = (timeframe: string, count: number): void => {
-        axios.post(`http://127.0.0.1:5000/api/create-playlist/${timeframe}/${count}`)
+        axios.post(`/api/create-playlist/${timeframe}/${count}`)
+        // axios.post(`http://127.0.0.1:5000/api/create-playlist/${timeframe}/${count}`)
             .then(res => {
                 console.log(res.data);
             })

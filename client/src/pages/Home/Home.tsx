@@ -14,8 +14,8 @@ export const Home: React.FC<HomeProps> = ({ loginHandler }: HomeProps) => {
 
 
     const getLogin = (): void => {
-        // axios.get('/api/user')
-        axios.get('http://127.0.0.1:5000/api/user')
+        axios.get('/api/user')
+        // axios.get('http://127.0.0.1:5000/api/user')
             .then(res => {
                 // console.log(res.data);
                 loginHandler(res.data);
@@ -27,8 +27,8 @@ export const Home: React.FC<HomeProps> = ({ loginHandler }: HomeProps) => {
     }
 
     const getLoginUrl = (): void => {
-        // axios.get('/api/user')
-        axios.get('http://127.0.0.1:5000/api/login')
+        axios.get('/api/login')
+        // axios.get('http://127.0.0.1:5000/api/login')
             .then(res => {
                 // console.log(res.data);
                 openLoginWindow(res.data);
