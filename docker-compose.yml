@@ -2,6 +2,8 @@ version: '3'
 services:
   
   api:
+    env_file:
+      - api/.env
     build:
       context: api
       dockerfile: Dockerfile
@@ -13,7 +15,7 @@ services:
   client:
     build:
       context: client
-      dockerfile: Dockerfile
+      target: stage1
     image: explorer-client
     ports:
       - '3000:80'
