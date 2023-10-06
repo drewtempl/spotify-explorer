@@ -1,4 +1,3 @@
-# Use an official Python runtime as a parent image
 FROM python:3.9
 
 # Set the working directory in the container
@@ -16,5 +15,5 @@ COPY . /app
 # Expose port 5000
 EXPOSE 5000
 
-# Run the Flask application
+# Run the application
 CMD ["gunicorn", "-b", ":5000", "app:app"]
