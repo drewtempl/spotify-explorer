@@ -31,7 +31,7 @@ export const SongItem: React.FC<SongItemProps> = ({
         <Grid item xs={1} justifySelf={'flex-end'}>
           <Paper
             elevation={4}
-            sx={{ "justify-self": "flex-end", padding: "5px" }}
+            sx={{ "justify-self": "flex-end", padding: "5px", textAlign: "center", maxWidth: 'fit-content' }}
           >
             {data.popularity}
           </Paper>

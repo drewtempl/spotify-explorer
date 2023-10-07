@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import HomeProps from "./Home.types";
 
 export const Home: React.FC<HomeProps> = ({ loginHandler }: HomeProps) => {
-  const [userData, setUserData] = useState();
   const [childWindow, setChildWindow] = useState<Window | null>(null);
   const navigate = useNavigate();
 
