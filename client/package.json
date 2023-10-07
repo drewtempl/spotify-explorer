@@ -59,5 +59,6 @@
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
     }
-  }
+  },
+  "proxy": "http://127.0.0.1:5000"
 }
