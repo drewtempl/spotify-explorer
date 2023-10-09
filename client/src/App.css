@@ -1,2 +1,18 @@
 @media screen and (min-width: 768px) {
 }
+
+.genre-btn {
+    /* border: red solid 1px; */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.genre-btn-active {
+    border: purple solid 1px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,5 +1,7 @@
 type TopProps = {
     userData: userData | undefined;
+    children?: string | JSX.Element | JSX.Element[] | (() => JSX.Element);
+
 }
 
 type userData = {

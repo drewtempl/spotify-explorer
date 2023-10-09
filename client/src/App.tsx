@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Top from "./pages/Top";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import Genre from "./pages/Genre";
+import NavBar from "./components/NavBar";
 
 const App = () => {
   const [userData, setUserData] = useState<any>();
@@ -40,8 +42,9 @@ const App = () => {
             element={<Home loginHandler={loginHandler} />}
           ></Route>
           <Route path="/top" element={<Top userData={userData} />}></Route>
+          <Route path="/genre" element={<Genre userData={userData}/>}></Route>
         </Routes>
-      </ThemeProvider>
+      </ThemeProvider >
     </>
   );
 };
