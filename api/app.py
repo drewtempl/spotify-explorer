@@ -46,6 +46,10 @@ def user():
 def top_tracks(time_range):
     tracks = Spotify.get_top_tracks(20, time_range)
 
+    genres = Spotify.get_genres()
+
+    print(genres)
+
     response = jsonify(tracks)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
@@ -55,5 +59,13 @@ def make_playlist(timeframe, count):
     response = Spotify.create_playlist(timeframe, count)
 
     response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route("/api/genres")
+def get_genres():
+    response = Spotify.get_genres()
+    response = jsonify(response)
+
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response

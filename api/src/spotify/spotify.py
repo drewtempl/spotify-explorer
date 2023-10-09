@@ -44,3 +44,6 @@ class Spotify:
     def set_auth(self, code):
         token = self.auth.get_access_token(code)
         self.sp.set_auth(token)
+
+    def get_genres(self):
+        return self.sp.recommendation_genre_seeds()
