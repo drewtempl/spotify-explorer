@@ -11,14 +11,14 @@ export const Genre: React.FC<any> = ({ userData }) => {
 
     const getGenres = () => {
         axios.get('/api/genres').then(res => {
-            setGenres(res.data.genres);
+            setGenres(res.data);
         }).catch(error => {
             console.log(error);
         })
     }
 
-    const createPlaylist = (genres: string): void => {
-        axios.post('/api/playlist/genres', { genres: genres }).then(res => {
+    const createPlaylist = (genres: string, limit: number): void => {
+        axios.post('/api/playlist/genres', { genres: genres, limit: limit}).then(res => {
             console.log(res)
         }).catch(error => {
             console.log(error);
@@ -36,7 +36,8 @@ export const Genre: React.FC<any> = ({ userData }) => {
 
     const handleCreate = () => {
         const str = activeGenres.toString();
-        createPlaylist(str);
+        console.log(str)
+        createPlaylist(str, 20);
     }
 
     useEffect(() => {
@@ -44,6 +45,7 @@ export const Genre: React.FC<any> = ({ userData }) => {
     }, [])
 
     useEffect(() => {
+        // console.log(activeGenres);
     }, [activeGenres])
 
 
@@ -61,7 +63,7 @@ export const Genre: React.FC<any> = ({ userData }) => {
             >
                 <h1>Playlist Creator</h1>
                 <h3>Select up to 5 genres</h3>
-                <Button variant="contained" color="success" onClick={handleCreate}>Create Playlist!</Button>
+                <Button disabled={!activeGenres.length} variant="contained" color="success" onClick={handleCreate}>Create Playlist!</Button>
             </Container>
             <Container>
                 <Grid container spacing={1.5} justifyContent="space-between" >

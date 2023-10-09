@@ -4,9 +4,6 @@ from spotipy import MemoryCacheHandler
 import os
 from dotenv import load_dotenv
 
-
-load_dotenv()
-
 # print(os.environ['CLIENT_ID'],
 #       os.environ['CLIENT_SECRET'],
 #       os.environ['REDIRECT_URI'],)
