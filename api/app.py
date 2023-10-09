@@ -1,8 +1,12 @@
 from flask import Flask, jsonify, request
 from src.spotify import spotify
+from src.openai import openai
+import json
+
 
 app = Flask(__name__)
 Spotify = spotify.Spotify()
+OpenAI = openai.OpenAI()
 
 @app.route("/")
 def hello_world():
@@ -68,5 +72,18 @@ def get_genres():
 
 @app.route("/api/playlist/genres", methods=["POST"])
 def create_genre_playlist():
-    print(request.data)
-    # response = Spotify.get_rec_playlist()
+    print(request.json['genres'])
+    response = Spotify.get_rec_playlist(request.json['genres'], request.json['limit'])
+
+    response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+
+@app.route("/api/openai")
+def create_ai_playlist():
+    response = OpenAI.send_prompt('deep house playlist with 3 tracks')
+
+    response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
