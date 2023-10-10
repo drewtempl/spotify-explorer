@@ -70,9 +70,9 @@ def get_genres():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+
 @app.route("/api/playlist/genres", methods=["POST"])
 def create_genre_playlist():
-    print(request.json['genres'])
     response = Spotify.get_rec_playlist(request.json['genres'], request.json['limit'])
 
     response = jsonify(response)

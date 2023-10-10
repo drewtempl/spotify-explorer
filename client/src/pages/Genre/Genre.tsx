@@ -1,6 +1,8 @@
 import { Box, Button, Container, Grid, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import SongItemList from "../../components/SongItemList";
+
 
 
 export const Genre: React.FC<any> = ({ userData }) => {
@@ -9,7 +11,7 @@ export const Genre: React.FC<any> = ({ userData }) => {
 
     const getGenres = () => {
         axios.get('/api/genres').then(res => {
-            setGenres(res.data);
+            setGenres(res.data.genres);
         }).catch(error => {
             console.log(error);
         })
@@ -40,12 +42,10 @@ export const Genre: React.FC<any> = ({ userData }) => {
         getGenres();
     }, [])
 
-    useEffect(() => {
-    }, [activeGenres])
-
-
     return (
         <>
+            <SongItemList></SongItemList>       
+
             <Container
                 sx={{
                     display: "flex",
@@ -70,7 +70,6 @@ export const Genre: React.FC<any> = ({ userData }) => {
                     }
                 </Grid>
             </Container>
-
         </>
     )
 }
