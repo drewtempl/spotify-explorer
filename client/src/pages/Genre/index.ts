@@ -1,3 +1,3 @@
-import {Genre} from './Genre';
+import { Genre } from './Genre';
 
 export default Genre;

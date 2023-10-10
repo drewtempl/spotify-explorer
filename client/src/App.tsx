@@ -7,7 +7,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Genre from "./pages/Genre";
 import NavBar from "./components/NavBar";
-import { Prompt } from "./pages/Prompt/Prompt";
+import Prompt from "./pages/Prompt";
 
 const App = () => {
   const [userData, setUserData] = useState<any>();

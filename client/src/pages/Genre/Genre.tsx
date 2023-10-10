@@ -1,8 +1,6 @@
 import { Box, Button, Container, Grid, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import NavBar from "../../components/NavBar";
-
 
 
 export const Genre: React.FC<any> = ({ userData }) => {
@@ -17,7 +15,7 @@ export const Genre: React.FC<any> = ({ userData }) => {
         })
     }
 
-    const createPlaylist = (genres: string, limit: number): void => {
+    const createPlaylist = (genres: string[], limit: number): void => {
         axios.post('/api/playlist/genres', { genres: genres, limit: limit}).then(res => {
             console.log(res)
         }).catch(error => {
@@ -35,9 +33,7 @@ export const Genre: React.FC<any> = ({ userData }) => {
     }
 
     const handleCreate = () => {
-        const str = activeGenres.toString();
-        console.log(str)
-        createPlaylist(str, 20);
+        createPlaylist(activeGenres, 3)
     }
 
     useEffect(() => {
@@ -45,13 +41,11 @@ export const Genre: React.FC<any> = ({ userData }) => {
     }, [])
 
     useEffect(() => {
-        // console.log(activeGenres);
     }, [activeGenres])
 
 
     return (
         <>
-            <NavBar userData={userData} />
             <Container
                 sx={{
                     display: "flex",
