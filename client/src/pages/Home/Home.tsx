@@ -1,5 +1,5 @@
 import React, { SetStateAction, useState } from "react";
-import { AppBar, Button, Container } from "@mui/material";
+import { AppBar, Button, Container, Typography } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import HomeProps from "./Home.types";
@@ -55,8 +55,8 @@ export const Home: React.FC<HomeProps> = ({ loginHandler }: HomeProps) => {
         textAlign: "center"
       }}
     >
-      <h1>Playlist Premier</h1>
-      <h3>Create playlists from your most listened to tracks</h3>
+      <Typography variant="h3" gutterBottom>Playlist Premier</Typography>
+      <Typography variant="subtitle1" gutterBottom>Create playlists from your most listened to tracks</Typography>
       <Button
         variant="outlined"
         sx={{ marginTop: "20px" }}
