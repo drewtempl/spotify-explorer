@@ -55,60 +55,57 @@ export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
   }, []);
 
   return (
-    <>
-      <NavBar userData={userData} />
-      <Container
-        sx={{
-          display: "flex",
-          "flex-direction": "column",
-          "align-items": "stretch",
-          textAlign: "center",
-        }}
-      >
-        <h1>Your Top Tracks</h1>
-        <Box className="list-wrapper">
-          <Paper elevation={8}>
-            <Container>
-              <Box
-                sx={{
-                  display: "flex",
-                  "flex-direction": "column",
-                  "align-items": "center",
-                  gap: "15px",
-                }}
+    <Container
+      sx={{
+        display: "flex",
+        "flex-direction": "column",
+        "align-items": "stretch",
+        textAlign: "center",
+      }}
+    >
+      <h1>Your Top Tracks</h1>
+      <Box className="list-wrapper">
+        <Paper elevation={8}>
+          <Container>
+            <Box
+              sx={{
+                display: "flex",
+                "flex-direction": "column",
+                "align-items": "center",
+                gap: "15px",
+              }}
+            >
+              <Tabs
+                sx={{ marginLeft: "-15px", marginRight: "-15px" }}
+                value={activeTab}
+                onChange={handleChange}
               >
-                <Tabs
-                  sx={{ marginLeft: "-15px", marginRight: "-15px" }}
-                  value={activeTab}
-                  onChange={handleChange}
-                >
-                  <Tab label="Last 4 weeks" value={"short_term"}></Tab>
-                  <Tab label="Last 6 months" value={"medium_term"}></Tab>
-                  <Tab label="All time" value={"long_term"}></Tab>
-                </Tabs>
-                <Button
-                  onClick={() => {
-                    createPlaylist(activeTab, 20);
-                    setIsDisabled(isDisabled.concat(activeTab));
-                  }}
-                  variant="contained"
-                  color="success"
-                  disabled={isDisabled.includes(activeTab)}
-                >
-                  {isDisabled.includes(activeTab)
-                    ? "Playlist created!"
-                    : "Create playlist"}
-                </Button>
-              </Box>
-            </Container>
-            <List dense>
-              {topTracks.map((el: any, index) => {
-                return <SongItem data={el} index={index} />;
-              })}
-            </List>
-          </Paper>
-        </Box>
-      </Container>
-    </>
+                <Tab label="Last 4 weeks" value={"short_term"}></Tab>
+                <Tab label="Last 6 months" value={"medium_term"}></Tab>
+                <Tab label="All time" value={"long_term"}></Tab>
+              </Tabs>
+              <Button
+                onClick={() => {
+                  createPlaylist(activeTab, 20);
+                  setIsDisabled(isDisabled.concat(activeTab));
+                }}
+                variant="contained"
+                color="success"
+                disabled={isDisabled.includes(activeTab)}
+              >
+                {isDisabled.includes(activeTab)
+                  ? "Playlist created!"
+                  : "Create playlist"}
+              </Button>
+            </Box>
+          </Container>
+          <List dense>
+            {topTracks.map((el: any, index) => {
+              return <SongItem data={el} index={index} />;
+            })}
+          </List>
+        </Paper>
+      </Box>
+    </Container>
   );
 };

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Top from "./pages/Top";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Genre from "./pages/Genre";
 import NavBar from "./components/NavBar";
+import { Prompt } from "./pages/Prompt/Prompt";
 
 const App = () => {
   const [userData, setUserData] = useState<any>();
@@ -40,9 +41,12 @@ const App = () => {
           <Route
             path="/"
             element={<Home loginHandler={loginHandler} />}
-          ></Route>
-          <Route path="/top" element={<Top userData={userData} />}></Route>
-          <Route path="/genre" element={<Genre userData={userData}/>}></Route>
+          />
+          <Route element={<><NavBar userData={userData} /><Outlet /></>}>
+            <Route path="/top" element={<Top userData={userData} />}></Route>
+            <Route path="/genre" element={<Genre userData={userData} />}></Route>
+            <Route path="/prompt" element={<Prompt />}></Route>
+          </Route>
         </Routes>
       </ThemeProvider >
     </>
