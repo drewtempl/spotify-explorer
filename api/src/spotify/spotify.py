@@ -56,6 +56,9 @@ class Spotify:
     def get_rec_playlist(self, genres, limit):
         title = 'Recommendation Playlist'
 
+        # print(genres)
+        # return []
+
         tracks = self.sp.recommendations(seed_genres=genres, limit=limit)['tracks']
         track_ids = self.get_track_ids(tracks)
 
