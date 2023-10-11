@@ -10,6 +10,13 @@ import {
   ListSubheader,
   Tabs,
   Tab,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+  Stack,
 } from "@mui/material";
 import TopProps from "./Top.types";
 import axios from "axios";
@@ -46,9 +53,9 @@ export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
       });
   };
 
-  const handleChange = (e: any, value: string) => {
-    setActiveTab(value);
-    getTopTracks(value);
+  const handleChange = (event: SelectChangeEvent) => {
+    setActiveTab(event.target.value);
+    getTopTracks(event.target.value);
   };
 
   useEffect(() => {
@@ -59,22 +66,77 @@ export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
     <>
       {/* <SongItemList data={topTracks}></SongItemList> */}
       <Container
-        sx={{
-          display: "flex",
-          "flex-direction": "column",
-          "align-items": "stretch",
-          textAlign: "center",
-        }}
       >
-        <h1>Your Top Tracks</h1>
-        <Box className="list-wrapper">
-          <Paper elevation={8}>
+        {/* <h1>Your Top Tracks</h1> */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '30px', textAlign: 'center', mt: 2, mb: 2 }}>
+          <Typography variant="h4">Your Top Tracks</Typography>
+          {/* <Tabs
+            sx={{ marginLeft: "-15px", marginRight: "-15px" }}
+            value={activeTab}
+            onChange={handleChange}
+          >
+            <Tab label="Last 4 weeks" value={"short_term"}></Tab>
+            <Tab label="Last 6 months" value={"medium_term"}></Tab>
+            <Tab label="All time" value={"long_term"}></Tab>
+          </Tabs> */}
+
+          {/* <Box sx={{ display: 'flex', gap: '15px', alignItems: 'center', }}> */}
+          <Stack direction='row' spacing={3} alignItems="center">
+            <FormControl  sx={{ minWidth: '150px' }}>
+              <InputLabel id="demo-simple-select-label">Time Period</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={activeTab}
+                label="Time Period"
+                onChange={handleChange}
+              >
+                <MenuItem value={"short_term"}>Last 4 weeks</MenuItem>
+                <MenuItem value={"medium_term"}>Last 6 months</MenuItem>
+                <MenuItem value={"long_term"}>All time</MenuItem>
+              </Select>
+            </FormControl>
+            <Button
+              sx={{ flex: 'none' }}
+              onClick={() => {
+                createPlaylist(activeTab, 20);
+                setIsDisabled(isDisabled.concat(activeTab));
+              }}
+              variant="contained"
+              color="success"
+              disabled={isDisabled.includes(activeTab)}
+            >
+              {isDisabled.includes(activeTab)
+                ? "Playlist created!"
+                : "Create playlist"}
+            </Button>
+          </Stack>
+          {/* </Box> */}
+
+          {/* <Button
+            onClick={() => {
+              createPlaylist(activeTab, 20);
+              setIsDisabled(isDisabled.concat(activeTab));
+            }}
+            variant="contained"
+            color="success"
+            disabled={isDisabled.includes(activeTab)}
+          >
+            {isDisabled.includes(activeTab)
+              ? "Playlist created!"
+              : "Create playlist"}
+          </Button> */}
+        </Box>
+
+        <Box className="vertical">
+          <SongItemList data={topTracks}></SongItemList>
+          {/* <Paper elevation={8}>
             <Container>
               <Box
                 sx={{
                   display: "flex",
-                  "flex-direction": "column",
-                  "align-items": "center",
+                  flexDirection: "column",
+                  alignItems: "stretch",
                   gap: "15px",
                 }}
               >
@@ -107,9 +169,9 @@ export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
                 return <SongItem data={el} index={index} />;
               })}
             </List>
-          </Paper>
+          </Paper> */}
         </Box>
-      </Container>
+      </Container >
     </>
   );
 };

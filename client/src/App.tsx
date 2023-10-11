@@ -3,7 +3,7 @@ import "./App.css";
 import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Top from "./pages/Top";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider, createTheme, responsiveFontSizes } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Genre from "./pages/Genre";
 import NavBar from "./components/NavBar";
@@ -13,11 +13,12 @@ const App = () => {
   const [userData, setUserData] = useState<any>();
   const navigate = useNavigate();
 
-  const darkTheme = createTheme({
+  let darkTheme = createTheme({
     palette: {
       mode: "dark",
     },
   });
+  darkTheme = responsiveFontSizes(darkTheme);
 
   const loginHandler = (data: any): void => {
     sessionStorage.setItem("userData", JSON.stringify(data));

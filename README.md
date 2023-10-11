@@ -33,6 +33,11 @@ Run flask server
 flask run
 ```
 
+Run in debug mode
+```bash
+flask run --debug
+```
+
 ### In `/client`
 
 Install dependencies
