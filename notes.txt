@@ -15,3 +15,7 @@ bpm
 
 danceability
 energy
+
+todo:
+refresh access token
+put genre playlist into list, fix button

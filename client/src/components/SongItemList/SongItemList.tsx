@@ -32,7 +32,7 @@ export const SongItemList: React.FC<any> = ({ data }) => {
             <TableHead>
                 <TableRow>
                     {matches && <TableCell >#</TableCell>}
-                    <TableCell width={matches ? "60px" : "40px"}></TableCell>
+                    <TableCell width={matches ? "60px" : "40px"}/>
                     <TableCell width={matches ? "55%" : "65%"} sx={{pl: 5}}>{matches && 'Title'}</TableCell>
                     {matches && <TableCell width="18%">Popularity</TableCell>}
                     <TableCell width={matches ? "12%" : "auto"}>{matches && 'Preview'}</TableCell>
