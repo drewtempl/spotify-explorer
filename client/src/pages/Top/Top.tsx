@@ -90,7 +90,7 @@ export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
   return (
     <Container>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '30px', textAlign: 'center', mt: 2, mb: 1 }}>
-        <Typography variant="h4">Your Top Tracks</Typography>
+        <Typography variant="h4">Your Top Songs on Spotify</Typography>
         <Stack direction='row' spacing={3} alignItems="center">
 
           <FormControl sx={{ minWidth: '150px' }}>
