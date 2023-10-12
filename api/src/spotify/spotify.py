@@ -12,10 +12,24 @@ class Spotify:
         return self.user
 
     def get_top_tracks(self, limit, time_range):
-        self.top_tracks_playlist = self.sp.current_user_top_tracks(
-            limit=limit, offset=0, time_range=time_range)
+        if (limit == '99'):
+            results = self.sp.current_user_top_tracks(
+                limit=49, offset=0, time_range=time_range)
 
+            tracks = results['items']
+
+            results = self.sp.current_user_top_tracks(
+                limit=50, offset=49, time_range=time_range)
+
+            tracks.extend(results['items'])
+
+        else:
+            tracks = self.sp.current_user_top_tracks(
+                limit=limit, offset=0, time_range=time_range)['items']
+
+        self.top_tracks_playlist = tracks
         return self.top_tracks_playlist
+    
 
     def create_playlist(self, timeframe, count):
         titles = {
@@ -27,7 +41,7 @@ class Spotify:
         title = f'Top songs of {titles[timeframe]}'
         playlist = self.sp.user_playlist_create(self.user['id'], title)
 
-        track_ids = self.get_track_ids(self.top_tracks_playlist['items'])
+        track_ids = self.get_track_ids(self.top_tracks_playlist)
         self.sp.playlist_add_items(playlist['id'], track_ids, position=None)
 
         return playlist['external_urls']['spotify']
@@ -56,7 +70,8 @@ class Spotify:
     def get_rec_playlist(self, genres, limit):
         title = 'Recommendation Playlist'
 
-        tracks = self.sp.recommendations(seed_genres=genres, limit=limit)['tracks']
+        tracks = self.sp.recommendations(
+            seed_genres=genres, limit=limit)['tracks']
         track_ids = self.get_track_ids(tracks)
 
         playlist = self.sp.user_playlist_create(self.user['id'], title)
