@@ -8,9 +8,11 @@ app = Flask(__name__)
 Spotify = spotify.Spotify()
 OpenAI = openai.OpenAI()
 
+
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
+
 
 @app.route("/api/login")
 def login():
@@ -46,13 +48,16 @@ def user():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+
 @app.route("/api/top-tracks")
 def top_tracks():
-    tracks = Spotify.get_top_tracks(request.args.get('count'), request.args.get('timeframe'))
+    tracks = Spotify.get_top_tracks(request.args.get(
+        'count'), request.args.get('timeframe'))
 
     response = jsonify(tracks)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
 
 @app.route("/api/create-playlist/<timeframe>/<count>", methods=['POST'])
 def make_playlist(timeframe, count):
@@ -61,6 +66,7 @@ def make_playlist(timeframe, count):
     response = jsonify(response)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
 
 @app.route("/api/genres")
 def get_genres():
@@ -73,7 +79,8 @@ def get_genres():
 
 @app.route("/api/playlist/genres", methods=["POST"])
 def create_genre_playlist():
-    response = Spotify.get_rec_playlist(request.json['genres'], request.json['limit'])
+    response = Spotify.get_rec_playlist(
+        request.json['genres'], request.json['limit'])
 
     response = jsonify(response)
     response.headers.add('Access-Control-Allow-Origin', '*')

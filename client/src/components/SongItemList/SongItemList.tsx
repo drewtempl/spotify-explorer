@@ -27,45 +27,48 @@ export const SongItemList: React.FC<any> = ({ data }) => {
 
 
     return (
-        <Table >
-        {/* <Table sx={{tableLayout: 'fixed', width: '100%'}}> */}
+        // <Table >
+        <Table sx={{ tableLayout: 'fixed', width: '100%' }} >
             <TableHead>
                 <TableRow>
-                    {matches && <TableCell>#</TableCell>}
-                    <TableCell>Title</TableCell>
-                    {matches && <TableCell>Popularity</TableCell>}
-                    <TableCell sx={{padding: 0}}>Preview</TableCell>
+                    {matches && <TableCell >#</TableCell>}
+                    <TableCell width={matches ? "60px" : "40px"}></TableCell>
+                    <TableCell width={matches ? "55%" : "65%"} sx={{pl: 5}}>{matches && 'Title'}</TableCell>
+                    {matches && <TableCell width="18%">Popularity</TableCell>}
+                    <TableCell width={matches ? "12%" : "auto"}>{matches && 'Preview'}</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
                 {data.map((track: any, index: number) => (
                     <TableRow>
-                        {matches && <TableCell>
-                            <Box>
-                                <span>{index + 1}.</span>
-                            </Box>
+                        {matches && <TableCell >
+                            <span>{index + 1}.</span>
                         </TableCell>}
                         <TableCell>
-                            <Box display="flex" gap="15px" alignItems="center">
-                                <Box>
-                                    <img
-                                        style={{ height: matches ? '60px' : '40px', width: "auto" }}
-                                        src={track.album.images[0].url}
-                                        alt="album artwok"
-                                    ></img>
-                                </Box>
-                                <ListItemText primary={track.name} secondary={track.artists[0].name} />
+                            <Box>
+                                <img
+                                    style={{ height: matches ? '60px' : '40px', width: matches ? '60px' : '40px' }}
+                                    src={track.album.images[0].url}
+                                    alt="album artwok"
+                                ></img>
                             </Box>
                         </TableCell>
-                        {matches && <TableCell>
+
+                        <TableCell>
+                            <Box display="flex" gap="15px" alignItems="center">
+
+                                <ListItemText sx={{pl: 3}} primary={track.name} secondary={track.artists[0].name} />
+                            </Box>
+                        </TableCell>
+                        {matches && <TableCell sx={{pl: 4}}>
                             <Paper
                                 elevation={4}
-                                sx={{ "justify-self": "flex-end", padding: "5px", textAlign: "center", maxWidth: 'fit-content' }}
+                                sx={{ "justify-self": "flex-end", p: "5px", textAlign: "center", maxWidth: 'fit-content' }}
                             >
                                 {track.popularity}
                             </Paper>
                         </TableCell>}
-                        <TableCell sx={{padding: 0}}>
+                        <TableCell >
                             <IconButton color='success' size='large' onClick={() => handlePreview(index)}>
                                 {index === audioIndex ? <PauseCircleFilled /> : <PlayCircleFilled />}
                             </IconButton>
