@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Box,
@@ -13,16 +13,27 @@ import {
 } from "@mui/material";
 import TopProps from "../../pages/Top/Top.types";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
 
 export const NavBar: React.FC<TopProps> = ({ userData }: TopProps) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedPage, setSelectedPage] = useState('/top');
   const open = Boolean(anchorEl);
+
+  const navigate = useNavigate();
+
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(event);
+    // console.log(event);
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = (event: any) => {
-    console.log(event);
+  const handleClose = (event: any, path: string, reason?: string) => {
+    // console.log(reason);
+    if (!reason) {
+      navigate(path);
+      setSelectedPage(path);
+    }
+
 
     setAnchorEl(null);
   };
@@ -51,13 +62,13 @@ export const NavBar: React.FC<TopProps> = ({ userData }: TopProps) => {
               id="basic-menu"
               anchorEl={anchorEl}
               open={open}
-              onClose={handleClose}
+              onClose={(event, reason) => handleClose(event, '', reason)}
             >
-              <MenuItem selected onClick={handleClose}>
+              <MenuItem selected={selectedPage === '/top'} onClick={(e) => handleClose(e, '/top')}>
                 <ListItemText primary="Top Songs"></ListItemText>
               </MenuItem>
-              <MenuItem onClick={handleClose}>Genre Recommendations</MenuItem>
-              <MenuItem onClick={handleClose}>AI Playlist Generator</MenuItem>
+              <MenuItem selected={selectedPage === '/genre'} onClick={(e) => handleClose(e, '/genre')}>Genre Recommendations</MenuItem>
+              <MenuItem selected={selectedPage === '/prompt'} onClick={(e) => handleClose(e, '/prompt')}>AI Playlist Generator</MenuItem>
             </Menu>
           </Box>
 
