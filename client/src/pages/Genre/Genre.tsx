@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Paper } from "@mui/material";
+import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SongItemList from "../../components/SongItemList";
@@ -54,10 +54,12 @@ export const Genre: React.FC<any> = ({ userData }) => {
           "flex-direction": "column",
           "align-items": "center",
           textAlign: "center",
+          gap: "15px",
+          pt: '20px'
         }}
       >
-        <h1>Playlist Creator</h1>
-        <h3>Select up to 5 genres</h3>
+        <Typography variant="h4">Genre Recommendations</Typography>
+        <Typography variant="subtitle1">Select up to 5 genres</Typography>        
         <Button
           disabled={!activeGenres.length}
           variant="contained"

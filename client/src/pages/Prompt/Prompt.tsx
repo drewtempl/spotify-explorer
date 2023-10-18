@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Paper, TextField } from "@mui/material";
+import { Box, Button, Container, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -16,13 +16,14 @@ export const Prompt: React.FC<any> = ({ }) => {
                 "align-items": "center",
                 textAlign: "center",
                 gap: "30px",
+                pt: '20px'
             }}
         >
-            <h1>AI playlist generator</h1>
-            <h2>Generate playlists using a prompt</h2>
-            <TextField label="Send a prompt" variant="outlined" fullWidth/>
+            <Typography variant="h4">AI playlist generator</Typography>
+            <Typography variant="subtitle1">Generate playlists using a prompt</Typography>
+            <TextField label="Send a prompt" variant="outlined" fullWidth />
             <TextField defaultValue="10" type="number" label="# of songs" variant="outlined" inputProps={inputProps} />
-            <Button  variant="contained" color="success">Create playlist</Button>
+            <Button variant="contained" color="success">Create playlist</Button>
         </Container>
     )
 }
