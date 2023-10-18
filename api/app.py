@@ -1,10 +1,13 @@
-from flask import Flask, jsonify, request
-from src.spotify import spotify
+from flask import Flask, jsonify, request, session
 from src.openai import openai
+from src.spotify import spotify
+from src.spotify import authorization
 import json
 
 
 app = Flask(__name__)
+app.secret_key = 'hello'
+auth = authorization.Authorization(session)
 Spotify = spotify.Spotify()
 OpenAI = openai.OpenAI()
 
@@ -16,15 +19,15 @@ def hello_world():
 
 @app.route("/api/login")
 def login():
-    url = Spotify.get_auth_url()
+    url = auth.get_url()
     response = jsonify(url)
 
-    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 
 @app.route("/api/auth")
-def auth():
+def authenticate():
+    # print(request)
     code = request.args.get('code')
     Spotify.set_auth(code)
 
@@ -33,11 +36,6 @@ def auth():
     # print(user)
 
     return "<script>window.parent.location.reload();window.close()</script>"
-
-    response = jsonify(user)
-
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
 
 
 @app.route("/api/user")

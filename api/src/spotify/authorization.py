@@ -1,6 +1,6 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-from spotipy import MemoryCacheHandler
+from spotipy import FlaskSessionCacheHandler
 import os
 from dotenv import load_dotenv
 
@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 
 class Authorization:
-    def __init__(self):
+    def __init__(self, session=None):
         load_dotenv()
         scope = "user-read-email playlist-modify-public user-library-read user-library-modify user-top-read"
         self.auth_manager = SpotifyOAuth(scope=scope, client_id=os.environ['CLIENT_ID'],
@@ -18,7 +18,7 @@ class Authorization:
                                          redirect_uri=os.environ['REDIRECT_URI'],
                                          #  proxies={'http': 'http://localhost:8000'},
                                          open_browser=False,
-                                         cache_handler=MemoryCacheHandler())
+                                         cache_handler=FlaskSessionCacheHandler(session))
 
 
     def get_url(self):
