@@ -57,6 +57,13 @@ def top_tracks():
     return response
 
 
+@app.route("/api/create-playlist/recommendations", methods=['POST'])
+def creat_rec_playlist():
+    response = Spotify.get_rec_playlist()
+
+    return response
+
+
 @app.route("/api/create-playlist/<timeframe>/<count>", methods=['POST'])
 def make_playlist(timeframe, count):
     response = Spotify.create_playlist(timeframe, count)
@@ -73,6 +80,19 @@ def get_genres():
 
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
+
+@app.route("/api/recommendations/genres")
+def get_genre_recommendations():
+    # print(request.args)
+
+    response = Spotify.get_rec_tracks(
+        request.args, request.args.get('limit'))
+    
+    # response = jsonify(tracks)
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+    # return []
 
 
 @app.route("/api/playlist/genres", methods=["POST"])

@@ -59,20 +59,31 @@ class Spotify:
     def set_auth(self, code):
         token = self.auth.get_access_token(code)
 
-        # print(token)
+        print(token)
 
         self.sp.set_auth(token)
 
     def get_genres(self):
-        # return constants.GENRES
         return self.sp.recommendation_genre_seeds()
+    
+    def get_rec_tracks(self, genres, limit):
+        seed_genres = []
+        for genre in genres.values():
+            seed_genres.append(genre)
 
-    def get_rec_playlist(self, genres, limit):
+        seed_genres.pop()
+
+        self.rec_tracks = self.sp.recommendations(
+            seed_genres=seed_genres, limit=limit)['tracks']
+        
+        return self.rec_tracks
+        
+
+    def get_rec_playlist(self):
         title = 'Recommendation Playlist'
 
-        tracks = self.sp.recommendations(
-            seed_genres=genres, limit=limit)['tracks']
-        track_ids = self.get_track_ids(tracks)
+        track_ids = self.get_track_ids(self.rec_tracks)
+
 
         playlist = self.sp.user_playlist_create(self.user['id'], title)
         self.sp.playlist_add_items(playlist['id'], track_ids, position=None)
