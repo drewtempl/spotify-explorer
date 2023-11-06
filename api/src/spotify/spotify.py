@@ -28,7 +28,7 @@ class Spotify:
                 limit=limit, offset=0, time_range=time_range)['items']
 
         self.top_tracks_playlist = tracks
-        print(tracks)
+        # print(tracks)
         return self.top_tracks_playlist
     
 
