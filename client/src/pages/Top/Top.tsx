@@ -33,7 +33,7 @@ export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setTopTracks(res.data);
       })
       .catch((error) => {
