@@ -57,6 +57,13 @@ def top_tracks():
     return response
 
 
+@app.route("/api/create-playlist/recommendations", methods=['POST'])
+def creat_rec_playlist():
+    response = Spotify.get_rec_playlist()
+
+    return response
+
+
 @app.route("/api/create-playlist/<timeframe>/<count>", methods=['POST'])
 def make_playlist(timeframe, count):
     response = Spotify.create_playlist(timeframe, count)

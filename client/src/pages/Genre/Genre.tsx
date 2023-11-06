@@ -1,14 +1,31 @@
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SongItemList from "../../components/SongItemList";
+import { Track } from "../Top/Top.types";
+import qs from "qs";
 
 export const Genre: React.FC<any> = ({ userData }) => {
+  const [tracks, setTracks] = useState<Track[]>();
   const [genres, setGenres] = useState<string[]>();
   const [activeGenres, setActiveGenres] = useState<string[]>([]);
   const [recommendations, setRecommendations] = useState();
 
   const getGenres = () => {
+    console.log("Getting genres")
     axios
       .get("/api/genres")
       .then((res) => {
@@ -66,6 +83,9 @@ export const Genre: React.FC<any> = ({ userData }) => {
     getGenres();
   }, []);
 
+
+  console.log(genres)
+
   return (
     <Container>
       <Container
@@ -75,7 +95,7 @@ export const Genre: React.FC<any> = ({ userData }) => {
           "align-items": "center",
           textAlign: "center",
           gap: "15px",
-          pt: '20px'
+          pt: "20px",
         }}
       >
         <Typography variant="h4">Genre Recommendations</Typography>

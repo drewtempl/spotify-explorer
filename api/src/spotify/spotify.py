@@ -65,11 +65,10 @@ class Spotify:
         self.sp.set_auth(token)
 
     def get_genres(self):
-        # return constants.GENRES
         return self.sp.recommendation_genre_seeds()
+    
 
     def get_rec_playlist(self, genres, limit):
-        title = 'Recommendation Playlist'
         genres = genres.split(',')
 
         # print(genres, limit)
