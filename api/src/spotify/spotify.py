@@ -28,6 +28,7 @@ class Spotify:
                 limit=limit, offset=0, time_range=time_range)['items']
 
         self.top_tracks_playlist = tracks
+        print(tracks)
         return self.top_tracks_playlist
     
 
@@ -59,7 +60,7 @@ class Spotify:
     def set_auth(self, code):
         token = self.auth.get_access_token(code)
 
-        # print(token)
+        print(token)
 
         self.sp.set_auth(token)
 
@@ -69,12 +70,18 @@ class Spotify:
 
     def get_rec_playlist(self, genres, limit):
         title = 'Recommendation Playlist'
+        genres = genres.split(',')
+
+        # print(genres, limit)
+        # return []
 
         tracks = self.sp.recommendations(
             seed_genres=genres, limit=limit)['tracks']
-        track_ids = self.get_track_ids(tracks)
+        
+        return tracks
+        # track_ids = self.get_track_ids(tracks)
 
-        playlist = self.sp.user_playlist_create(self.user['id'], title)
-        self.sp.playlist_add_items(playlist['id'], track_ids, position=None)
+        # playlist = self.sp.user_playlist_create(self.user['id'], title)
+        # self.sp.playlist_add_items(playlist['id'], track_ids, position=None)
 
-        return playlist['external_urls']['spotify']
+        # return playlist['external_urls']['spotify']

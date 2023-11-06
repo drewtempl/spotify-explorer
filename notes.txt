@@ -17,5 +17,6 @@ danceability
 energy
 
 todo:
+move access token to client
 refresh access token - FlaskSessionCacheHandler
 put genre playlist into list, fix button

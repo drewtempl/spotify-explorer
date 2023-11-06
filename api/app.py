@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify, request
 from src.openai import openai
 from src.spotify import spotify
 from src.spotify import authorization
@@ -6,8 +6,8 @@ import json
 
 
 app = Flask(__name__)
-app.secret_key = 'hello'
-auth = authorization.Authorization(session)
+# app.secret_key = 'hello'
+auth = authorization.Authorization()
 Spotify = spotify.Spotify()
 OpenAI = openai.OpenAI()
 
@@ -75,10 +75,11 @@ def get_genres():
     return response
 
 
-@app.route("/api/playlist/genres", methods=["POST"])
-def create_genre_playlist():
+### Current WIP ###
+@app.route("/api/recommendations")
+def get_recommendations():
     response = Spotify.get_rec_playlist(
-        request.json['genres'], request.json['limit'])
+        request.args.get('recGenres'), request.args.get('limit'))
 
     response = jsonify(response)
     response.headers.add('Access-Control-Allow-Origin', '*')
