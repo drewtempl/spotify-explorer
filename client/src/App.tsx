@@ -44,8 +44,8 @@ const App = () => {
             element={<Home loginHandler={loginHandler} />}
           />
           <Route element={<><NavBar userData={userData} /><Outlet /></>}>
-            <Route path="/top" element={<Top userData={userData} />}></Route>
-            <Route path="/genre" element={<Genre userData={userData} />}></Route>
+            <Route path="/top" element={<Top />}></Route>
+            <Route path="/genre" element={<Genre />}></Route>
             <Route path="/prompt" element={<Prompt />}></Route>
           </Route>
         </Routes>

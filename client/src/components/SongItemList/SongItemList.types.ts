@@ -4,18 +4,12 @@ export type SongItemListProps = {
 
 export type TrackData = {
     album: {
-        images: [
-            {
-                url: string
-            },
-        ]
-    },
-    name: string,
-    artists: [
-        {
-            name: string,
-        }
-    ],
-    popularity: number,
-    preview_url: string,
-}
+      images: [{ height: number; url: string }];
+      name: string;
+    };
+    artists: [{ name: string }];
+    name: string;
+    popularity: number;
+    preview_url: string;
+    uri: string;
+  };

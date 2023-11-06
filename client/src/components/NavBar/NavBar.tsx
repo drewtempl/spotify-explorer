@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   AppBar,
   Box,
-  Container,
   IconButton,
   ListItemText,
   Menu,
@@ -11,11 +10,11 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import TopProps from "../../pages/Top/Top.types";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
+import NavBarProps from "./NavBar.types";
 
-export const NavBar: React.FC<TopProps> = ({ userData }: TopProps) => {
+export const NavBar: React.FC<NavBarProps> = ({ userData }: NavBarProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedPage, setSelectedPage] = useState('/top');
   const open = Boolean(anchorEl);

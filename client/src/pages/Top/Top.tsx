@@ -12,13 +12,13 @@ import {
   Stack,
   CircularProgress,
 } from "@mui/material";
-import TopProps, { Track } from "./Top.types";
 import axios from "axios";
 import "../../App.css";
 import SongItemList from "../../components/SongItemList";
+import { TrackData } from "../../components/SongItemList/SongItemList.types";
 
-export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
-  const [topTracks, setTopTracks] = useState<Track[]>([]);
+export const Top: React.FC = () => {
+  const [topTracks, setTopTracks] = useState<TrackData[]>([]);
   const [activeTab, setActiveTab] = useState("short_term");
   const [isLoading, setIsLoading] = useState(false);
   const [trackCount, setTrackCount] = useState("10");
@@ -132,7 +132,6 @@ export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
         </Stack>
 
         <Box height="50px">
-          {/* {true ? <CircularProgress /> : */}
           {isLoading ? <CircularProgress /> :
             isInactive() ?
               <Button

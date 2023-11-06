@@ -1,25 +1,18 @@
 import {
-  Box,
   Button,
-  CircularProgress,
   Container,
-  FormControl,
   Grid,
-  InputLabel,
-  MenuItem,
   Paper,
-  Select,
-  SelectChangeEvent,
+  Stack,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SongItemList from "../../components/SongItemList";
-import { Track } from "../Top/Top.types";
-import qs from "qs";
+import { TrackData } from "../../components/SongItemList/SongItemList.types";
 
-export const Genre: React.FC<any> = ({ userData }) => {
-  const [tracks, setTracks] = useState<Track[]>();
+export const Genre: React.FC<any> = () => {
+  const [tracks, setTracks] = useState<TrackData[]>();
   const [genres, setGenres] = useState<string[]>();
   const [activeGenres, setActiveGenres] = useState<string[]>([]);
   const [recommendations, setRecommendations] = useState();
@@ -79,6 +72,10 @@ export const Genre: React.FC<any> = ({ userData }) => {
     getRecommendations(recGenres, 3);
   };
 
+  const handleCreate = () => {
+
+  }
+
   useEffect(() => {
     getGenres();
   }, []);
@@ -99,18 +96,47 @@ export const Genre: React.FC<any> = ({ userData }) => {
         }}
       >
         <Typography variant="h4">Genre Recommendations</Typography>
-        <Typography variant="subtitle1">Select up to 5 genres</Typography>
-        <Button
-          disabled={!activeGenres.length}
-          variant="contained"
-          onClick={handleRecs}
-          sx={{ marginBottom: "30px" }}
-        >
-          Generate Playlist
-        </Button>
+        {!recommendations ?
+          <>
+            <Typography variant="subtitle1">Select up to 5 genres</Typography>
+            <Button
+              disabled={!activeGenres.length}
+              variant="contained"
+              onClick={handleRecs}
+              sx={{ marginBottom: "30px" }}
+            >
+              Generate Playlist
+            </Button>
+          </>
+          :
+          <>
+            <Stack direction='row' spacing={2} sx={{ marginBottom: "30px" }}>
+              <Button
+                variant="contained"
+                onClick={handleRecs}
+              >
+                Regenerate
+              </Button>
+              <Button
+                variant="contained"
+                onClick={handleRecs}
+                color='success'
+              >
+                Add playlist to Spotify
+              </Button>
+              <Button
+                variant="contained"
+                color='secondary'
+                onClick={handleRecs}
+              >
+                Select new genres
+              </Button>
+            </Stack>
+
+          </>}
       </Container>
       {!recommendations ?
-        <Container sx={{mb: 3}}>
+        <Container sx={{ mb: 3 }}>
           <Grid container spacing={1.5} justifyContent="space-between">
             {genres?.map((genre, index) => {
               return (
