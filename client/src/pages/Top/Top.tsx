@@ -16,6 +16,7 @@ import axios from "axios";
 import "../../App.css";
 import SongItemList from "../../components/SongItemList";
 import { TrackData } from "../../components/SongItemList/SongItemList.types";
+import CountDropdown from "../../components/CountDropdown";
 
 export const Top: React.FC = () => {
   const [topTracks, setTopTracks] = useState<TrackData[]>([]);
@@ -23,6 +24,8 @@ export const Top: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [trackCount, setTrackCount] = useState("10");
   const [isDisabled, setIsDisabled] = useState<any>([]);
+
+  const countValues = [10, 20, 50, 99]
 
   const getTopTracks = (timeframe: string, count: string): void => {
     axios
@@ -114,49 +117,40 @@ export const Top: React.FC = () => {
             </Select>
           </FormControl>
 
-          <FormControl sx={{ minWidth: "90px" }}>
-            <InputLabel id="track-count-select-label"># of Tracks</InputLabel>
-            <Select
-              labelId="track-count-select-label"
-              id="track-count-select"
-              value={trackCount}
-              label="# of Tracks"
-              onChange={handleCountChange}
-            >
-              <MenuItem value={10}>10</MenuItem>
-              <MenuItem value={20}>20</MenuItem>
-              <MenuItem value={50}>50</MenuItem>
-              <MenuItem value={99}>99</MenuItem>
-            </Select>
-          </FormControl>
+          <CountDropdown
+            trackCount={trackCount}
+            countHandler={handleCountChange}
+            values={countValues}
+          />
         </Stack>
 
         <Box height="50px">
-          {isLoading ? <CircularProgress /> :
-            isInactive() ?
-              <Button
-                sx={{ flex: 'none' }}
-                variant="contained"
-                color="success"
-                href={getUrl()}
-                target="_blank"
-              >
-                View on Spotify
-              </Button>
-              :
-              <Button
-                sx={{ flex: 'none' }}
-                onClick={() => {
-                  createPlaylist(activeTab, trackCount);
-                }}
-                variant="contained"
-              >
-                Add playlist to Spotify
-              </Button>
-          }
+          {isLoading ? (
+            <CircularProgress />
+          ) : isInactive() ? (
+            <Button
+              sx={{ flex: "none" }}
+              variant="contained"
+              color="success"
+              href={getUrl()}
+              target="_blank"
+            >
+              View on Spotify
+            </Button>
+          ) : (
+            <Button
+              sx={{ flex: "none" }}
+              onClick={() => {
+                createPlaylist(activeTab, trackCount);
+              }}
+              variant="contained"
+            >
+              Add playlist to Spotify
+            </Button>
+          )}
         </Box>
       </Box>
       <SongItemList data={topTracks}></SongItemList>
-    </Container >
+    </Container>
   );
 };
