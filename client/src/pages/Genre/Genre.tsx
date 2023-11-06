@@ -6,6 +6,7 @@ import SongItemList from "../../components/SongItemList";
 export const Genre: React.FC<any> = ({ userData }) => {
   const [genres, setGenres] = useState<string[]>();
   const [activeGenres, setActiveGenres] = useState<string[]>([]);
+  const [recommendations, setRecommendations] = useState();
 
   const getGenres = () => {
     axios
@@ -18,16 +19,34 @@ export const Genre: React.FC<any> = ({ userData }) => {
       });
   };
 
-  const createPlaylist = (genres: string[], limit: number): void => {
+  const getRecommendations = (recGenres: string, limit: number) => {
     axios
-      .post("/api/playlist/genres", { genres: genres, limit: limit })
+      .get("/api/recommendations", {
+        params: {
+          recGenres: recGenres,
+          limit: limit,
+        }
+      })
       .then((res) => {
-        console.log(res);
+        setRecommendations(res.data);
+        console.log(res.data);
+        // setGenres(res.data.genres);
       })
       .catch((error) => {
         console.log(error);
       });
-  };
+  }
+
+  // const createPlaylist = (genres: string[], limit: number): void => {
+  //   axios
+  //     .post("/api/playlist/genres", { genres: genres, limit: limit })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const handleClick = (genre: string) => {
     if (activeGenres?.includes(genre)) {
@@ -38,8 +57,9 @@ export const Genre: React.FC<any> = ({ userData }) => {
     }
   };
 
-  const handleCreate = () => {
-    createPlaylist(activeGenres, 3);
+  const handleRecs = () => {
+    const recGenres = activeGenres.toString();
+    getRecommendations(recGenres, 3);
   };
 
   useEffect(() => {
@@ -47,7 +67,7 @@ export const Genre: React.FC<any> = ({ userData }) => {
   }, []);
 
   return (
-    <>
+    <Container>
       <Container
         sx={{
           display: "flex",
@@ -59,43 +79,46 @@ export const Genre: React.FC<any> = ({ userData }) => {
         }}
       >
         <Typography variant="h4">Genre Recommendations</Typography>
-        <Typography variant="subtitle1">Select up to 5 genres</Typography>        
+        <Typography variant="subtitle1">Select up to 5 genres</Typography>
         <Button
           disabled={!activeGenres.length}
           variant="contained"
-          color="success"
-          onClick={handleCreate}
-          sx={{marginBottom: "30px"}}
+          onClick={handleRecs}
+          sx={{ marginBottom: "30px" }}
         >
-          Create Playlist
+          Generate Playlist
         </Button>
       </Container>
-      <Container>
-        <Grid container spacing={1.5} justifyContent="space-between">
-          {genres?.map((genre, index) => {
-            return (
-              <Grid
-                item
-                xs={2}
-                sx={{ minWidth: "100px", maxWidth: "130px" }}
-                flexGrow={1}
-              >
-                <Paper
-                  onClick={() => handleClick(genre)}
-                  className={
-                    activeGenres?.includes(genre)
-                      ? "genre-btn-active"
-                      : "genre-btn"
-                  }
-                  sx={{ height: "60px", minWidth: "100px" }}
+      {!recommendations ?
+        <Container sx={{mb: 3}}>
+          <Grid container spacing={1.5} justifyContent="space-between">
+            {genres?.map((genre, index) => {
+              return (
+                <Grid
+                  item
+                  xs={2}
+                  sx={{ minWidth: "100px", maxWidth: "130px" }}
+                  flexGrow={1}
                 >
-                  <p>{genre}</p>
-                </Paper>
-              </Grid>
-            );
-          })}
-        </Grid>
-      </Container>
-    </>
+                  <Paper
+                    onClick={() => handleClick(genre)}
+                    className={
+                      activeGenres?.includes(genre)
+                        ? "genre-btn-active"
+                        : "genre-btn"
+                    }
+                    sx={{ height: "60px", minWidth: "100px" }}
+                  >
+                    <p>{genre}</p>
+                  </Paper>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Container>
+        :
+        <SongItemList data={recommendations}></SongItemList>
+      }
+    </Container>
   );
 };

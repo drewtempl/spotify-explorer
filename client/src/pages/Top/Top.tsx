@@ -3,9 +3,6 @@ import {
   Button,
   Box,
   Container,
-  ListSubheader,
-  Tabs,
-  Tab,
   Typography,
   FormControl,
   InputLabel,
@@ -17,8 +14,6 @@ import {
 } from "@mui/material";
 import TopProps from "./Top.types";
 import axios from "axios";
-import NavBar from "../../components/NavBar";
-import SongItem from "../../components/SongItem";
 import "../../App.css";
 import SongItemList from "../../components/SongItemList";
 
@@ -86,7 +81,7 @@ export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
     getTopTracks("short_term", trackCount);
   }, []);
 
-  
+
   return (
     <Container>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '30px', textAlign: 'center', mt: 2, mb: 1 }}>
@@ -147,14 +142,12 @@ export const Top: React.FC<TopProps> = ({ userData }: TopProps) => {
                 }}
                 variant="contained"
               >
-                Create playlist
+                Add playlist to Spotify
               </Button>
           }
         </Box>
       </Box>
-      <Box className="vertical" sx={{ mb: 3 }}>
-        <SongItemList data={topTracks}></SongItemList>
-      </Box>
+      <SongItemList data={topTracks}></SongItemList>
     </Container >
   );
 };
