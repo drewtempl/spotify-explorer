@@ -71,16 +71,7 @@ class Spotify:
     def get_rec_playlist(self, genres, limit):
         genres = genres.split(',')
 
-        # print(genres, limit)
-        # return []
-
         tracks = self.sp.recommendations(
             seed_genres=genres, limit=limit)['tracks']
         
         return tracks
-        # track_ids = self.get_track_ids(tracks)
-
-        # playlist = self.sp.user_playlist_create(self.user['id'], title)
-        # self.sp.playlist_add_items(playlist['id'], track_ids, position=None)
-
-        # return playlist['external_urls']['spotify']
