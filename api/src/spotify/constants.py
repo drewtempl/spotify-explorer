@@ -1,3 +1,20 @@
+TRACKS = [
+    {"year": 2019, "song_title": "Lost in Japan", "artist": "Shawn Mendes"},
+    {
+        "year": 2016,
+        "song_title": "Say You Won't Let Go",
+        "artist": "James Arthur",
+    },
+    {"year": 2015, "song_title": "Thinking Out Loud", "artist": "Ed Sheeran"},
+    {"year": 2020, "song_title": "Blind", "artist": "Lola Young"},
+    {"year": 2018, "song_title": "In My Blood", "artist": "Shawn Mendes"},
+    {"year": 2014, "song_title": "All of Me", "artist": "John Legend"},
+    {"year": 2021, "song_title": "Drivers License", "artist": "Olivia Rodrigo"},
+    {"year": 2017, "song_title": "Perfect", "artist": "Ed Sheeran"},
+    {"year": 2013, "song_title": "Stay", "artist": "Rihanna ft. Mikky Ekko"},
+    {"year": 2020, "song_title": "Before You Go", "artist": "Lewis Capaldi"},
+]
+
 GENRES = [
     "acoustic",
     "afrobeat",
@@ -124,5 +141,5 @@ GENRES = [
     "trip-hop",
     "turkish",
     "work-out",
-    "world-music"
+    "world-music",
 ]

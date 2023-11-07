@@ -34,20 +34,16 @@ class OpenAI:
                             'items': {
                                 'type': 'object',
                                 'properties': {
-                                    'year': {
-                                        'type': 'number',
-                                        'description': 'release year',
-                                    },
                                     'song_title': {
                                         'type': 'string',
                                         'description': 'song title',
                                     },
                                     'artist': {
                                         'type': 'string',
-                                        'description': 'primary artist name',
+                                        'description': 'artist name without features',
                                     }
                                 },
-                                'required': ['year', 'song_title', 'artist']
+                                'required': ['song_title', 'artist']
 
                             }
 

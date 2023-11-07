@@ -82,9 +82,10 @@ def get_recommendations():
 ## CURRENT WIP ##
 @app.route("/api/openai")
 def get_ai_playlist():
-    # tracks = OpenAI.send_prompt(prompt=request.args.get('prompt'), limit=request.args.get('limit'))
-    # print(tracks)
-    response = Spotify.search(tracks=[])
+    playlist = OpenAI.send_prompt(prompt=request.args.get('prompt'), limit=request.args.get('limit'))
+    print(playlist)
+    response = Spotify.search(playlist['tracks'])
+    # response = Spotify.search(tracks=[])
 
     response = jsonify(response)
     return response

@@ -3,38 +3,25 @@ from . import constants
 
 
 class Spotify:
-
     def __init__(self):
         self.auth = authorization.Authorization()
         self.sp = self.auth.get_spotify()
 
         self.tracklist = [
-            {"index": 1, "song_title": "In Da Club", "artist": "50 Cent"},
-            {"index": 2, "song_title": "Hot in Herre", "artist": "Nelly"},
-            {"index": 3, "song_title": "Get Ur Freak On", "artist": "Missy Elliott"},
-            {"index": 4, "song_title": "Crazy in Love", "artist": "Beyoncé ft. Jay-Z"},
-            {"index": 5, "song_title": "Lose Yourself", "artist": "Eminem"},
-            {"index": 6, "song_title": "The Way I Am", "artist": "Eminem"},
+            {"year": 2019, "song_title": "Lost in Japan", "artist": "Shawn Mendes"},
             {
-                "index": 7,
-                "song_title": "Hate It or Love It",
-                "artist": "The Game ft. 50 Cent",
+                "year": 2016,
+                "song_title": "Say You Won't Let Go",
+                "artist": "James Arthur",
             },
-            {
-                "index": 8,
-                "song_title": "Still D.R.E.",
-                "artist": "Dr. Dre ft. Snoop Dogg",
-            },
-            {
-                "index": 9,
-                "song_title": "In Da Wind",
-                "artist": "Trick Daddy ft. CeeLo Green and Big Boi",
-            },
-            {
-                "index": 10,
-                "song_title": "The Next Episode",
-                "artist": "Dr. Dre ft. Snoop Dogg",
-            },
+            {"year": 2015, "song_title": "Thinking Out Loud", "artist": "Ed Sheeran"},
+            {"year": 2020, "song_title": "Blind", "artist": "Lola Young"},
+            {"year": 2018, "song_title": "In My Blood", "artist": "Shawn Mendes"},
+            {"year": 2014, "song_title": "All of Me", "artist": "John Legend"},
+            {"year": 2021, "song_title": "Drivers License", "artist": "Olivia Rodrigo"},
+            {"year": 2017, "song_title": "Perfect", "artist": "Ed Sheeran"},
+            {"year": 2013, "song_title": "Stay", "artist": "Rihanna"},
+            {"year": 2020, "song_title": "Before You Go", "artist": "Lewis Capaldi"},
         ]
 
     def get_user(self):
@@ -108,15 +95,22 @@ class Spotify:
 
     def search(self, tracks):
         tracklist = []
-        # for track in tracks:
-        for track in self.tracklist:
-            title = track["song_title"].replace(" ", "%20")
-            artist = track["artist"].replace(" ", "%20")
+        for track in tracks:
+        # for track in self.tracklist:
+            # title = track["song_title"].replace(" ", "+")
+            # artist = track["artist"].replace(" ", "+")
 
-            query = f"track%3A{title}%20artist%3A{artist}"
-            res = self.sp.search(q=query, limit=1)['tracks']['items'][0]
+            # query = (
+            #     f"track%3A%27{title}%27+artist%3A%27{artist}%27"
+            #     # f"track%3A%27{title}%27+artist%3A%27{artist}%27+year%3A{track['year']}"
+            #     # f"track%3A\"{title}\"+artist%3A\"{artist}\"+year%3A{track['year']}"
+            #     # f"track%3A\"{title}\"'%20artist%3A\"{artist}\""
+            # )
 
-            tracklist.append(res)
-            
+            query = "artist:" + track["artist"] + " track:" + track["song_title"] 
+            res = self.sp.search(q=query, limit=1)["tracks"]["items"]
+
+            if res:
+                tracklist.append(res[0])
+
         return tracklist
-    
