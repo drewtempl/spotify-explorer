@@ -23,31 +23,31 @@ class OpenAI:
                     "properties": {
                         'title': {
                             'type': 'string',
-                            'description': 'Title of the playlist'
+                            'description': 'playlist title'
                         },
                         'description': {
                             'type': 'string',
-                            'description': 'Description of the playlist',
+                            'description': 'playlist description',
                         },
                         'tracks': {
                             'type': 'array',
                             'items': {
                                 'type': 'object',
                                 'properties': {
-                                    'index': {
+                                    'year': {
                                         'type': 'number',
-                                        'description': 'Track number',
+                                        'description': 'release year',
                                     },
                                     'song_title': {
                                         'type': 'string',
-                                        'description': 'Title of the song',
+                                        'description': 'song title',
                                     },
                                     'artist': {
                                         'type': 'string',
-                                        'description': 'Name of the artist',
+                                        'description': 'primary artist name',
                                     }
                                 },
-                                'required': ['index', 'song_title', 'artist']
+                                'required': ['year', 'song_title', 'artist']
 
                             }
 
