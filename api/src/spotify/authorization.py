@@ -1,6 +1,6 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-from spotipy import FlaskSessionCacheHandler
+from spotipy import FlaskSessionCacheHandler, MemoryCacheHandler
 import os
 from dotenv import load_dotenv
 
@@ -18,7 +18,7 @@ class Authorization:
                                          redirect_uri=os.environ['REDIRECT_URI'],
                                          #  proxies={'http': 'http://localhost:8000'},
                                          open_browser=False,
-                                         cache_handler=FlaskSessionCacheHandler(session))
+                                         cache_handler=MemoryCacheHandler())
 
 
     def get_url(self):

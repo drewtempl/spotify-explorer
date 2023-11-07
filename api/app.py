@@ -74,16 +74,17 @@ def get_genres():
 @app.route("/api/recommendations")
 def get_recommendations():
     response = Spotify.get_rec_playlist(
-        request.args.get('recGenres'), request.args.get('limit'))
+        genres=request.args.get('recGenres'), limit=request.args.get('limit'))
 
     response = jsonify(response)
     return response
 
-
+## CURRENT WIP ##
 @app.route("/api/openai")
-def create_ai_playlist():
-    response = OpenAI.send_prompt('deep house playlist with 3 tracks')
+def get_ai_playlist():
+    # tracks = OpenAI.send_prompt(prompt=request.args.get('prompt'), limit=request.args.get('limit'))
+    # print(tracks)
+    response = Spotify.search(tracks=[])
 
     response = jsonify(response)
-    # response.headers.add('Access-Control-Allow-Origin', '*')
     return response

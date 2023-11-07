@@ -9,10 +9,12 @@ class OpenAI:
         load_dotenv()
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    def send_prompt(self, prompt):
+    def send_prompt(self, prompt, limit):
         response = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
-            messages=[{'role': 'user', 'content': prompt}],
+            messages=[
+                {'role': 'system', 'content': f"You generate playlists with {limit} tracks"},
+                {'role': 'user', 'content': prompt}],
             functions=[{
                 'name': 'parse_playlist',
                 'description': 'Playlist generator',
