@@ -2,18 +2,19 @@ import {
   Box,
   Button,
   Container,
-  Grid,
-  Paper,
   SelectChangeEvent,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import CountDropdown from "../../components/CountDropdown";
+import { TrackData } from "../../components/SongItemList/SongItemList.types";
+import SongItemList from "../../components/SongItemList";
 
 export const Prompt: React.FC = () => {
+  const [tracks, setTracks] = useState<TrackData[] | null>();
   const [trackCount, setTrackCount] = useState("10");
   const [prompt, setPrompt] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
@@ -25,9 +26,11 @@ export const Prompt: React.FC = () => {
       .get("/api/openai", {
         params: {
           prompt: prompt,
+          limit: trackCount,
         },
       })
       .then((res) => {
+        setTracks(res.data);
         console.log(res);
       })
       .catch((error) => {
@@ -96,6 +99,7 @@ export const Prompt: React.FC = () => {
           </Button>
         </Stack>
       </Box>
+      {tracks ? <SongItemList data={tracks} /> : null}
     </Container>
   );
 };
