@@ -1,13 +1,10 @@
-play button next to track
-popularity score
 send 30s audio clip to open ai, with optional prompt, translate to english
 send album artwork to open ai
-list of most listened to playlists
 recently listened to tracks
 
 toggle to least listened to
 
-recommendations playlist:
+recommendations/liked songs playlist:
 instrumental
 popularity
 time limit
@@ -20,3 +17,7 @@ todo:
 move access token to client
 refresh access token - FlaskSessionCacheHandler
 put genre playlist into list, fix button
+add logout button
+move openai call to json mode
+
+

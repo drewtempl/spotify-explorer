@@ -52,11 +52,16 @@ export const Home: React.FC<HomeProps> = ({ loginHandler }: HomeProps) => {
         flexDirection: "column",
         alignItems: "center",
         marginTop: "30px",
-        textAlign: "center"
+        textAlign: "center",
       }}
     >
-      <Typography variant="h3" gutterBottom>Playlist Premier</Typography>
-      <Typography variant="subtitle1" gutterBottom>Create playlists from your most listened to tracks</Typography>
+      <Typography variant="h3" gutterBottom>
+        Playlist Premier
+      </Typography>
+      <Typography variant="subtitle1" gutterBottom>
+        Create playlists from your most listened to tracks, genre
+        recommendations, and AI prompts
+      </Typography>
       <Button
         variant="outlined"
         sx={{ marginTop: "20px" }}
