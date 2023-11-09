@@ -12,8 +12,5 @@ RUN pip install -r requirements.txt
 # Copy all source files to the working directory
 COPY . /app
 
-# Expose port 5000
-EXPOSE 5000
-
 # Run the application
 CMD ["gunicorn", "-b", ":5000", "app:app"]
