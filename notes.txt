@@ -15,6 +15,7 @@ energy
 
 todo:
 move access token to client
+add error handling for empty OpenAI response
 refresh access token - FlaskSessionCacheHandler
 put genre playlist into list, fix button
 add logout button

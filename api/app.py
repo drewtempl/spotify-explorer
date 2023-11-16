@@ -8,7 +8,7 @@ import json
 app = Flask(__name__)
 auth = authorization.Authorization()
 Spotify = spotify.Spotify()
-OpenAI = openai.OpenAI()
+OpenAI = openai.OpenAI_API()
 
 
 @app.route("/")

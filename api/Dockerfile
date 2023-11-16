@@ -13,4 +13,4 @@ RUN pip install -r requirements.txt
 COPY . /app
 
 # Run the application
-CMD ["gunicorn", "-b", ":5000", "app:app"]
+CMD ["gunicorn", "-b", ":5000", "app:app", "--timeout=600"]
