@@ -57,16 +57,16 @@ export const Genre: React.FC<any> = () => {
       });
   };
 
-  // const createPlaylist = (genres: string[], limit: number): void => {
-  //   axios
-  //     .post("/api/playlist/genres", { genres: genres, limit: limit })
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const createPlaylist = (): void => {
+    axios
+      .post("/api/playlist/genres", {})
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleClick = (genre: string) => {
     if (activeGenres.includes(genre)) {
@@ -93,13 +93,17 @@ export const Genre: React.FC<any> = () => {
     setTrackCount("10");
   };
 
-  const handleCreate = () => {};
+  const handleCreate = () => {
+    setIsLoading(true);
+  };
+
+  const getTrackIDs = () => {
+    const ids = [];
+  };
 
   useEffect(() => {
     getGenres();
   }, []);
-
-  // console.log(genres);
 
   return (
     <Container>
@@ -115,47 +119,85 @@ export const Genre: React.FC<any> = () => {
       >
         <Typography variant="h4">Genre Recommendations</Typography>
         {!tracks ? (
+          // {/* {!true ? ( */}
           <>
             <Typography variant="subtitle1">Select up to 5 genres</Typography>
-            <Stack direction="row" spacing={2} mb={3} alignItems="center">
+            <Grid
+              container
+              columns={10}
+              direction={matches ? "row" : "column"}
+              alignItems="center"
+              justifyContent="center"
+              spacing={matches ? 2 : 2}
+              padding={3}
+            >
+              <Grid item xs={3} md={2}  display='flex' justifyContent='flex-end'>
+                <CountDropdown
+                  trackCount={trackCount}
+                  values={countValues}
+                  countHandler={handleCountChange}
+                />
+              </Grid>
+              <Grid item xs={3} md={2}>
+                {isLoading ? (
+                  <CircularProgress />
+                ) : (
+                  <Button fullWidth variant="contained">
+                    Generate Playlist
+                  </Button>
+                )}
+              </Grid>
+            </Grid>
+            {/* <Stack direction="row" spacing={2} mb={3} alignItems="center">
               <CountDropdown
                 trackCount={trackCount}
                 values={countValues}
                 countHandler={handleCountChange}
               />
-              <Box sx={{width: '200px'}}>
-                {isLoading ? (
-                  <CircularProgress />
-                ) : (
-                  <Button
-                    disabled={!activeGenres.length}
-                    variant="contained"
-                    onClick={handleRecs}
-                    sx={{ marginBottom: "30px" }}
-                  >
-                    Generate Playlist
-                  </Button>
-                )}
-              </Box>
-            </Stack>
+              <LoadingButton
+                isLoading={false}
+                isDisabled={!activeGenres.length}
+                label="Generate playlist"
+                clickHandler={handleRecs}
+              />
+            </Stack> */}
           </>
         ) : (
           <>
-            <Stack
+            <Grid
+              container
               direction={matches ? "row" : "column"}
-              spacing={2}
-              sx={{ marginBottom: "30px" }}
+              alignItems="stretch"
+              justifyContent="center"
+              spacing={3}
+              padding={3}
+              style={{ marginBottom: "30px" }}
             >
-              <Button variant="contained" onClick={handleRecs}>
-                Regenerate
-              </Button>
-              <Button variant="contained" onClick={handleReset}>
-                Select new genres
-              </Button>
-              <Button variant="contained" onClick={handleRecs} color="success">
-                Add playlist to Spotify
-              </Button>
-            </Stack>
+              <Grid item xs={4} height="40px">
+                {isLoading ? (
+                  <CircularProgress />
+                ) : (
+                  <Button fullWidth variant="contained" onClick={handleRecs}>
+                    Regenerate
+                  </Button>
+                )}
+              </Grid>
+              <Grid item xs={4}>
+                <Button fullWidth variant="contained" onClick={handleReset}>
+                  Select new genres
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={handleCreate}
+                  color="success"
+                >
+                  Add playlist to Spotify
+                </Button>
+              </Grid>
+            </Grid>
           </>
         )}
       </Container>

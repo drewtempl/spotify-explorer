@@ -49,11 +49,10 @@ export const NavBar: React.FC<NavBarProps> = ({ userData }: NavBarProps) => {
           direction="row"
           justifyContent="space-between"
           alignItems="center"
-          pl={2}
           pr={2}
         >
           <Box>
-            <IconButton sx={{ mr: 2 }} onClick={handleClick}>
+            <IconButton sx={{ mr: 1 }} onClick={handleClick}>
               <MenuIcon />
             </IconButton>
 
