@@ -26,7 +26,7 @@ def login():
 
 @app.route("/api/auth")
 def authenticate():
-    code = request.args.get('code')
+    code = request.args.get("code")
     Spotify.set_auth(code)
 
     return "<script>window.close()</script>"
@@ -42,21 +42,24 @@ def user():
 
 @app.route("/api/top-tracks")
 def top_tracks():
-    tracks = Spotify.get_top_tracks(request.args.get(
-        'count'), request.args.get('timeframe'))
-    
+    tracks = Spotify.get_top_tracks(
+        request.args.get("count"), request.args.get("timeframe")
+    )
+
     return tracks
 
 
-@app.route("/api/create-playlist/recommendations", methods=['POST'])
+@app.route("/api/create-playlist/recommendations", methods=["POST"])
 def create_rec_playlist():
     request_data = request.get_json()
-    response = Spotify.create_rec_playlist(request_data['track_ids'], request_data['genres'])
+    response = Spotify.create_rec_playlist(
+        request_data["track_ids"], request_data["genres"]
+    )
 
     return response
 
 
-@app.route("/api/create-playlist/<timeframe>/<count>", methods=['POST'])
+@app.route("/api/create-playlist/<timeframe>/<count>", methods=["POST"])
 def make_playlist(timeframe, count):
     response = Spotify.create_playlist(timeframe, count)
 
@@ -75,7 +78,8 @@ def get_genres():
 @app.route("/api/recommendations")
 def get_recommendations():
     response = Spotify.get_rec_playlist(
-        genres=request.args.get('recGenres'), limit=request.args.get('limit'))
+        genres=request.args.get("recGenres"), limit=request.args.get("limit")
+    )
 
     response = jsonify(response)
     return response
@@ -83,8 +87,25 @@ def get_recommendations():
 
 @app.route("/api/openai")
 def get_ai_playlist():
-    playlist = OpenAI.send_prompt(prompt=request.args.get('prompt'), limit=request.args.get('limit'))
-    response = Spotify.search(playlist['tracks'])
+    playlist = OpenAI.send_prompt(
+        prompt=request.args.get("prompt"), limit=request.args.get("limit")
+    )
+    tracks = Spotify.search(playlist["tracks"])
 
-    response = jsonify(response)
+    response = {
+        "title": playlist["title"],
+        "description": playlist["description"],
+        "tracks": tracks,
+    }
+
+    return response
+
+
+@app.route("/api/create-playlist/openai", methods=["POST"])
+def create_ai_playlist():
+    request_data = request.get_json()
+    response = Spotify.create_ai_playlist(
+        request_data["title"], request_data["description"], request_data["track_ids"]
+    )
+
     return response

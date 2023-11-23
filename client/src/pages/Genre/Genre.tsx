@@ -67,7 +67,7 @@ export const Genre: React.FC<any> = () => {
       .then((res) => {
         setIsCreateLoading(false);
         setUrl(res.data);
-        console.log(res);
+        // console.log(res);
       })
       .catch((error) => {
         console.log(error);
@@ -218,7 +218,7 @@ export const Genre: React.FC<any> = () => {
           isLoading={isCreateLoading}
           url={url}
           clickHandler={handleCreate}
-        ></SongItemList>
+        />
       )}
     </Container>
   );

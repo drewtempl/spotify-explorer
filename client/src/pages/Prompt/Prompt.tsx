@@ -21,8 +21,11 @@ export const Prompt: React.FC = () => {
   const [prompt, setPrompt] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isCreateLoading, setIsCreateLoading] = useState(false);
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
+  const [url, setUrl] = useState<string | undefined>();
 
-  const matches = useMediaQuery("(min-width: 600px)");
   const countValues = [10, 15, 20, 25, 30];
 
   const getTracks = () => {
@@ -34,8 +37,28 @@ export const Prompt: React.FC = () => {
         },
       })
       .then((res) => {
-        setTracks(res.data);
-        console.log(res);
+        setIsLoading(false);
+        setTracks(res.data.tracks);
+        setTitle(res.data.title);
+        setDescription(res.data.description);
+        // console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const createPlaylist = (track_ids: string[]) => {
+    axios
+      .post("/api/create-playlist/openai", {
+        title: title,
+        description: description,
+        track_ids: track_ids,
+      })
+      .then((res) => {
+        setIsCreateLoading(false);
+        setUrl(res.data);
+        // console.log(res);
       })
       .catch((error) => {
         console.log(error);
@@ -49,11 +72,13 @@ export const Prompt: React.FC = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     setError(false);
+    setIsLoading(true);
+    setTracks(null);
 
     if (prompt === "") {
       setError(true);
     } else {
-      console.log(prompt);
+      // console.log(prompt);
       getTracks();
     }
   };
@@ -61,6 +86,15 @@ export const Prompt: React.FC = () => {
   const handleChange = (event: any) => {
     setError(false);
     setPrompt(event.target.value);
+  };
+
+  const handleCreate = () => {
+    if (tracks) {
+      setIsCreateLoading(true);
+      const track_ids = tracks.map((val) => val.id);
+
+      createPlaylist(track_ids);
+    }
   };
 
   return (
@@ -104,7 +138,14 @@ export const Prompt: React.FC = () => {
           </Stack>
         </Stack>
       </Box>
-      {tracks ? <SongItemList data={tracks} /> : null}
+      {tracks ? (
+        <SongItemList
+          data={tracks}
+          isLoading={isCreateLoading}
+          url={url}
+          clickHandler={handleCreate}
+        />
+      ) : null}
     </Container>
   );
 };

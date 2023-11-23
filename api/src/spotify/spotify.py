@@ -102,6 +102,14 @@ class Spotify:
         self.sp.playlist_add_items(playlist["id"], track_ids)
 
         return playlist["external_urls"]["spotify"]
+    
+    def create_ai_playlist(self, title, description, track_ids):
+        playlist = self.sp.user_playlist_create(
+            user=self.user["id"], name=title, description=description
+        )
+        self.sp.playlist_add_items(playlist["id"], track_ids)
+
+        return playlist["external_urls"]["spotify"]
 
     def search(self, tracks):
         tracklist = []
