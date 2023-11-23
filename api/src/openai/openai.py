@@ -22,45 +22,48 @@ class OpenAI_API:
                 },
                 {"role": "user", "content": prompt},
             ],
-            functions=[
+            tools=[
                 {
-                    "name": "parse_playlist",
-                    "description": "Playlist generator",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                            "title": {
-                                "type": "string",
-                                "description": "playlist title",
-                            },
-                            "description": {
-                                "type": "string",
-                                "description": "playlist description",
-                            },
-                            "tracks": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "song_title": {
-                                            "type": "string",
-                                            "description": "song title",
+                    "type": "function",
+                    "function": {
+                        "name": "parse_playlist",
+                        "description": "Curate songs for a given prompt",
+                        "parameters": {
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "type": "string",
+                                    "description": "playlist title",
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "playlist description",
+                                },
+                                "tracks": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "song_title": {
+                                                "type": "string",
+                                                "description": "song title",
+                                            },
+                                            "artist": {
+                                                "type": "string",
+                                                "description": "artist name",
+                                            },
                                         },
-                                        "artist": {
-                                            "type": "string",
-                                            "description": "artist name without features",
-                                        },
+                                        "required": ["song_title", "artist"],
                                     },
-                                    "required": ["song_title", "artist"],
                                 },
                             },
+                            "required": ["title", "description", "tracks"],
                         },
-                        "required": ["title", "description", "tracks"],
                     },
                 }
             ],
         )
 
-        print(response)
+        # print(response.choices[0].message.tool_calls[0].function.arguments)
 
-        return json.loads(response.choices[0].message.function_call.arguments)
+        return json.loads(response.choices[0].message.tool_calls[0].function.arguments)
