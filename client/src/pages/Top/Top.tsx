@@ -25,7 +25,7 @@ export const Top: React.FC = () => {
   const [trackCount, setTrackCount] = useState("10");
   const [isDisabled, setIsDisabled] = useState<any>([]);
 
-  const countValues = [10, 20, 50, 99]
+  const countValues = [10, 20, 50, 99];
 
   const getTopTracks = (timeframe: string, count: string): void => {
     axios
@@ -79,8 +79,18 @@ export const Top: React.FC = () => {
     const element = isDisabled.find(
       (el: any) => el.name === activeTab + trackCount
     );
-    console.log(element.url);
-    return element.url;
+    if (element) {
+      return element.url;
+    } else {
+      return element;
+    }
+    // console.log(element.url);
+    // return element.url;
+  };
+
+  const handleCreate = () => {
+    setIsLoading(true);
+    createPlaylist(activeTab, trackCount);
   };
 
   useEffect(() => {
@@ -89,7 +99,7 @@ export const Top: React.FC = () => {
 
   return (
     <Container>
-      <Box
+      {/* <Box
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -99,7 +109,8 @@ export const Top: React.FC = () => {
           mt: 2,
           mb: 1,
         }}
-      >
+      > */}
+      <Stack alignItems="center" gap={5} mt={4} mb={4}>
         <Typography variant="h4">Your Top Songs on Spotify</Typography>
         <Stack direction="row" spacing={3} alignItems="center">
           <FormControl sx={{ minWidth: "150px" }}>
@@ -124,7 +135,7 @@ export const Top: React.FC = () => {
           />
         </Stack>
 
-        <Box height="50px">
+        {/* <Box height="50px">
           {isLoading ? (
             <CircularProgress />
           ) : isInactive() ? (
@@ -148,9 +159,15 @@ export const Top: React.FC = () => {
               Add playlist to Spotify
             </Button>
           )}
-        </Box>
-      </Box>
-      <SongItemList data={topTracks}></SongItemList>
+        </Box> */}
+      </Stack>
+      {/* </Box> */}
+      <SongItemList
+        data={topTracks}
+        isLoading={isLoading}
+        url={getUrl()}
+        clickHandler={handleCreate}
+      ></SongItemList>
     </Container>
   );
 };

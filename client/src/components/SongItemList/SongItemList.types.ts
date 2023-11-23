@@ -1,5 +1,8 @@
 export type SongItemListProps = {
   data: TrackData[];
+  isLoading?: boolean;
+  url?: string | undefined;
+  clickHandler?: () => void;
 };
 
 export type TrackData = {

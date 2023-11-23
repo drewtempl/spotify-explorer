@@ -1,12 +1,10 @@
 import {
-  Box,
   Button,
   CircularProgress,
   Container,
   Grid,
   Paper,
   SelectChangeEvent,
-  Stack,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -22,6 +20,8 @@ export const Genre: React.FC<any> = () => {
   const [activeGenres, setActiveGenres] = useState<string[]>([]);
   const [trackCount, setTrackCount] = useState("10");
   const [isLoading, setIsLoading] = useState(false);
+  const [isCreateLoading, setIsCreateLoading] = useState(false);
+  const [url, setUrl] = useState<string | undefined>();
 
   const matches = useMediaQuery("(min-width: 600px)");
   const countValues = [10, 20, 30, 50, 75, 99];
@@ -49,7 +49,7 @@ export const Genre: React.FC<any> = () => {
       .then((res) => {
         setIsLoading(false);
         setTracks(res.data);
-        console.log(res.data);
+        // console.log(res.data);
         // setGenres(res.data.genres);
       })
       .catch((error) => {
@@ -57,10 +57,14 @@ export const Genre: React.FC<any> = () => {
       });
   };
 
-  const createPlaylist = (): void => {
+  const createPlaylist = (ids = ""): void => {
     axios
-      .post("/api/playlist/genres", {})
+      .post("/api/create-playlist/recommendations", {
+        ids: ids,
+      })
       .then((res) => {
+        setIsCreateLoading(false);
+        setUrl(res.data);
         console.log(res);
       })
       .catch((error) => {
@@ -79,6 +83,7 @@ export const Genre: React.FC<any> = () => {
 
   const handleRecs = () => {
     setIsLoading(true);
+    setUrl(undefined);
     const recGenres = activeGenres.toString();
     getRecommendations(recGenres, trackCount);
   };
@@ -94,11 +99,15 @@ export const Genre: React.FC<any> = () => {
   };
 
   const handleCreate = () => {
-    setIsLoading(true);
+    setIsCreateLoading(true);
+    const ids = getTrackIDs();
+
+    createPlaylist(ids);
   };
 
   const getTrackIDs = () => {
-    const ids = [];
+    const ids = tracks?.map((val) => val.id);
+    return ids?.toString();
   };
 
   useEffect(() => {
@@ -131,7 +140,7 @@ export const Genre: React.FC<any> = () => {
               spacing={matches ? 2 : 2}
               padding={3}
             >
-              <Grid item xs={3} md={2}  display='flex' justifyContent='flex-end'>
+              <Grid item xs={3} md={2} display="flex" justifyContent="flex-end">
                 <CountDropdown
                   trackCount={trackCount}
                   values={countValues}
@@ -142,61 +151,51 @@ export const Genre: React.FC<any> = () => {
                 {isLoading ? (
                   <CircularProgress />
                 ) : (
-                  <Button fullWidth variant="contained">
+                  <Button fullWidth variant="contained" onClick={handleRecs}>
                     Generate Playlist
                   </Button>
                 )}
               </Grid>
             </Grid>
-            {/* <Stack direction="row" spacing={2} mb={3} alignItems="center">
-              <CountDropdown
-                trackCount={trackCount}
-                values={countValues}
-                countHandler={handleCountChange}
-              />
-              <LoadingButton
-                isLoading={false}
-                isDisabled={!activeGenres.length}
-                label="Generate playlist"
-                clickHandler={handleRecs}
-              />
-            </Stack> */}
           </>
         ) : (
           <>
             <Grid
               container
               direction={matches ? "row" : "column"}
-              alignItems="stretch"
+              // alignItems="stretch"
               justifyContent="center"
-              spacing={3}
-              padding={3}
-              style={{ marginBottom: "30px" }}
+              spacing={2}
+              sx={{ mb: 4, mt: 0 }}
             >
-              <Grid item xs={4} height="40px">
+              <Grid item xs={4} md={2.5} height="40px">
                 {isLoading ? (
                   <CircularProgress />
                 ) : (
-                  <Button fullWidth variant="contained" onClick={handleRecs}>
+                  <Button fullWidth variant="outlined" onClick={handleRecs}>
                     Regenerate
                   </Button>
                 )}
               </Grid>
-              <Grid item xs={4}>
-                <Button fullWidth variant="contained" onClick={handleReset}>
+              <Grid item xs={4} md={2.5} height="40px">
+                <Button fullWidth variant="outlined" onClick={handleReset}>
                   Select new genres
                 </Button>
               </Grid>
-              <Grid item xs={4}>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  onClick={handleCreate}
-                  color="success"
-                >
-                  Add playlist to Spotify
-                </Button>
-              </Grid>
+              {/* <Grid item xs={4} md={3} height="40px">
+                {isCreateLoading ? (
+                  <CircularProgress color="success" />
+                ) : (
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    onClick={handleCreate}
+                    color="success"
+                  >
+                    Add playlist to Spotify
+                  </Button>
+                )}
+              </Grid> */}
             </Grid>
           </>
         )}
@@ -229,7 +228,12 @@ export const Genre: React.FC<any> = () => {
           </Grid>
         </Container>
       ) : (
-        <SongItemList data={tracks}></SongItemList>
+        <SongItemList
+          data={tracks}
+          isLoading={isCreateLoading}
+          url={url}
+          clickHandler={handleCreate}
+        ></SongItemList>
       )}
     </Container>
   );
