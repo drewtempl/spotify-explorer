@@ -5,6 +5,7 @@ import {
   Grid,
   Paper,
   SelectChangeEvent,
+  Stack,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -28,7 +29,6 @@ export const Genre: React.FC<any> = () => {
   const countValues = [10, 20, 30, 50, 75, 99];
 
   const getGenres = () => {
-    // console.log("Getting genres");
     axios
       .get("/api/genres")
       .then((res) => {
@@ -135,39 +135,28 @@ export const Genre: React.FC<any> = () => {
           // {/* {!true ? ( */}
           <>
             <Typography variant="subtitle1">Select up to 5 genres</Typography>
-            <Grid
-              container
-              columns={10}
-              direction={matches ? "row" : "column"}
-              alignItems="center"
-              justifyContent="center"
-              spacing={matches ? 2 : 2}
-              padding={3}
-            >
-              <Grid item xs={3} md={2} display="flex" justifyContent="flex-end">
-                <CountDropdown
-                  trackCount={trackCount}
-                  values={countValues}
-                  countHandler={handleCountChange}
-                />
-              </Grid>
-              <Grid item xs={3} md={2}>
+            <Stack direction="row" gap={2} justifyContent="center" margin={3}>
+              <CountDropdown
+                trackCount={trackCount}
+                values={countValues}
+                countHandler={handleCountChange}
+              />
+              <Stack alignItems="center" justifyContent="center" width="180px">
                 {isLoading ? (
                   <CircularProgress />
                 ) : (
-                  <Button fullWidth variant="contained" onClick={handleRecs}>
-                    Generate Playlist
+                  <Button variant="contained" type="submit">
+                    Generate playlist
                   </Button>
                 )}
-              </Grid>
-            </Grid>
+              </Stack>
+            </Stack>
           </>
         ) : (
           <>
             <Grid
               container
               direction={matches ? "row" : "column"}
-              // alignItems="stretch"
               justifyContent="center"
               spacing={2}
               maxWidth={matches ? "100%" : "80%"}
@@ -192,20 +181,6 @@ export const Genre: React.FC<any> = () => {
                   Select new genres
                 </Button>
               </Grid>
-              {/* <Grid item xs={4} md={3} height="40px">
-                {isCreateLoading ? (
-                  <CircularProgress color="success" />
-                ) : (
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    onClick={handleCreate}
-                    color="success"
-                  >
-                    Add playlist to Spotify
-                  </Button>
-                )}
-              </Grid> */}
             </Grid>
           </>
         )}

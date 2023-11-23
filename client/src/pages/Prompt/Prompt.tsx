@@ -1,11 +1,13 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   SelectChangeEvent,
   Stack,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useState } from "react";
 import axios from "axios";
@@ -18,7 +20,9 @@ export const Prompt: React.FC = () => {
   const [trackCount, setTrackCount] = useState("10");
   const [prompt, setPrompt] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
 
+  const matches = useMediaQuery("(min-width: 600px)");
   const countValues = [10, 15, 20, 25, 30];
 
   const getTracks = () => {
@@ -83,20 +87,21 @@ export const Prompt: React.FC = () => {
           onChange={handleChange}
           sx={{ mb: 3 }}
         />
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-          gap={3}
-        >
+        <Stack direction="row" gap={2} justifyContent="center" margin={3}>
           <CountDropdown
             trackCount={trackCount}
             values={countValues}
             countHandler={handleCountChange}
           />
-          <Button variant="contained" type="submit">
-            Generate playlist
-          </Button>
+          <Stack alignItems="center" justifyContent="center" width="180px">
+            {isLoading ? (
+              <CircularProgress />
+            ) : (
+              <Button fullWidth variant="contained" type="submit">
+                Generate playlist
+              </Button>
+            )}
+          </Stack>
         </Stack>
       </Box>
       {tracks ? <SongItemList data={tracks} /> : null}
