@@ -14,7 +14,7 @@ class OpenAI_API:
 
     def send_prompt(self, prompt, limit):
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-3.5-turbo-1106",
             messages=[
                 {
                     "role": "system",
@@ -61,6 +61,6 @@ class OpenAI_API:
             ],
         )
 
-        # print(response.choices[0])
+        print(response)
 
         return json.loads(response.choices[0].message.function_call.arguments)

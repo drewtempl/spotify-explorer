@@ -145,7 +145,7 @@ export const Genre: React.FC<any> = () => {
                 {isLoading ? (
                   <CircularProgress />
                 ) : (
-                  <Button variant="contained" type="submit">
+                  <Button variant="contained" onClick={handleRecs}>
                     Generate playlist
                   </Button>
                 )}
