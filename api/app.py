@@ -29,7 +29,7 @@ def authenticate():
     code = request.args.get('code')
     Spotify.set_auth(code)
 
-    return "<script>window.parent.location.reload();window.close()</script>"
+    return "<script>window.close()</script>"
 
 
 @app.route("/api/user")
@@ -51,7 +51,7 @@ def top_tracks():
 @app.route("/api/create-playlist/recommendations", methods=['POST'])
 def create_rec_playlist():
     request_data = request.get_json()
-    response = Spotify.create_rec_playlist(request_data['ids'])
+    response = Spotify.create_rec_playlist(request_data['track_ids'], request_data['genres'])
 
     return response
 
@@ -81,16 +81,10 @@ def get_recommendations():
     return response
 
 
-## CURRENT WIP ##
-
-
-
 @app.route("/api/openai")
 def get_ai_playlist():
     playlist = OpenAI.send_prompt(prompt=request.args.get('prompt'), limit=request.args.get('limit'))
-    print(playlist)
     response = Spotify.search(playlist['tracks'])
-    # response = Spotify.search(tracks=[])
 
     response = jsonify(response)
     return response

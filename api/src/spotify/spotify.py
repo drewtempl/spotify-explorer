@@ -92,21 +92,21 @@ class Spotify:
         tracks = self.sp.recommendations(seed_genres=genres, limit=limit)["tracks"]
 
         return tracks
-    
-    def create_rec_playlist(self, ids):
-        track_ids = ids.split(",")
 
-        playlist = self.sp.user_playlist_create(self.user["id"], "Genre Recommendations")
+    def create_rec_playlist(self, track_ids, genres):
+        desc = ", ".join(genres)
+
+        playlist = self.sp.user_playlist_create(
+            user=self.user["id"], name="Genre Recommendations", description=desc
+        )
         self.sp.playlist_add_items(playlist["id"], track_ids)
 
         return playlist["external_urls"]["spotify"]
 
-
     def search(self, tracks):
         tracklist = []
         for track in tracks:
-
-            query = "artist:" + track["artist"] + " track:" + track["song_title"] 
+            query = "artist:" + track["artist"] + " track:" + track["song_title"]
             res = self.sp.search(q=query, limit=1)["tracks"]["items"]
 
             if res:
