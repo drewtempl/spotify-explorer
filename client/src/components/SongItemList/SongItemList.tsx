@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "../../App.css";
+import OpenInNew from "@mui/icons-material/OpenInNew";
 import PlayCircleFilled from "@mui/icons-material/PlayCircleFilled";
 import PauseCircleFilled from "@mui/icons-material/PauseCircleFilled";
 import { SongItemListProps, TrackData } from "./SongItemList.types";
@@ -50,7 +51,14 @@ export const SongItemList: React.FC<SongItemListProps> = ({
       {isLoading ? (
         <CircularProgress />
       ) : url ? (
-        <Button href={url} target="_blank" variant="contained" color="success" sx={{ height: "40px" }}>
+        <Button
+          href={url}
+          target="_blank"
+          variant="contained"
+          color="success"
+          sx={{ height: "40px" }}
+          endIcon={<OpenInNew />}
+        >
           View on Spotify
         </Button>
       ) : (

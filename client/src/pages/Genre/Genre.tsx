@@ -11,6 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SongItemList from "../../components/SongItemList";
+import Refresh from "@mui/icons-material/Refresh";
 import { TrackData } from "../../components/SongItemList/SongItemList.types";
 import CountDropdown from "../../components/CountDropdown";
 
@@ -57,10 +58,11 @@ export const Genre: React.FC<any> = () => {
       });
   };
 
-  const createPlaylist = (ids = ""): void => {
+  const createPlaylist = (track_ids: string[], genres: string[]): void => {
     axios
       .post("/api/create-playlist/recommendations", {
-        ids: ids,
+        track_ids: track_ids,
+        genres: genres,
       })
       .then((res) => {
         setIsCreateLoading(false);
@@ -99,16 +101,18 @@ export const Genre: React.FC<any> = () => {
   };
 
   const handleCreate = () => {
-    setIsCreateLoading(true);
-    const ids = getTrackIDs();
+    if (tracks) {
+      setIsCreateLoading(true);
+      const track_ids = tracks.map((val) => val.id);
 
-    createPlaylist(ids);
+      createPlaylist(track_ids, activeGenres);
+    }
   };
 
-  const getTrackIDs = () => {
-    const ids = tracks?.map((val) => val.id);
-    return ids?.toString();
-  };
+  // const getTrackIDs = () => {
+  //   const ids = tracks?.map((val) => val.id);
+  //   return ids?.toString();
+  // };
 
   useEffect(() => {
     getGenres();
@@ -166,13 +170,19 @@ export const Genre: React.FC<any> = () => {
               // alignItems="stretch"
               justifyContent="center"
               spacing={2}
+              maxWidth={matches ? "100%" : "80%"}
               sx={{ mb: 4, mt: 0 }}
             >
               <Grid item xs={4} md={2.5} height="40px">
                 {isLoading ? (
                   <CircularProgress />
                 ) : (
-                  <Button fullWidth variant="outlined" onClick={handleRecs}>
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    onClick={handleRecs}
+                    endIcon={<Refresh />}
+                  >
                     Regenerate
                   </Button>
                 )}
