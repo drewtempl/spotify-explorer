@@ -62,7 +62,7 @@ class Spotify:
         playlist = self.sp.user_playlist_create(self.user["id"], title)
 
         track_ids = self.get_track_ids(self.top_tracks_playlist)
-        self.sp.playlist_add_items(playlist["id"], track_ids, position=None)
+        self.sp.playlist_add_items(playlist["id"], track_ids)
 
         return playlist["external_urls"]["spotify"]
 
@@ -92,20 +92,19 @@ class Spotify:
         tracks = self.sp.recommendations(seed_genres=genres, limit=limit)["tracks"]
 
         return tracks
+    
+    def create_rec_playlist(self, ids):
+        track_ids = ids.split(",")
+
+        playlist = self.sp.user_playlist_create(self.user["id"], "Genre Recommendations")
+        self.sp.playlist_add_items(playlist["id"], track_ids)
+
+        return playlist["external_urls"]["spotify"]
+
 
     def search(self, tracks):
         tracklist = []
         for track in tracks:
-        # for track in self.tracklist:
-            # title = track["song_title"].replace(" ", "+")
-            # artist = track["artist"].replace(" ", "+")
-
-            # query = (
-            #     f"track%3A%27{title}%27+artist%3A%27{artist}%27"
-            #     # f"track%3A%27{title}%27+artist%3A%27{artist}%27+year%3A{track['year']}"
-            #     # f"track%3A\"{title}\"+artist%3A\"{artist}\"+year%3A{track['year']}"
-            #     # f"track%3A\"{title}\"'%20artist%3A\"{artist}\""
-            # )
 
             query = "artist:" + track["artist"] + " track:" + track["song_title"] 
             res = self.sp.search(q=query, limit=1)["tracks"]["items"]

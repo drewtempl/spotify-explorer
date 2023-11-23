@@ -49,8 +49,9 @@ def top_tracks():
 
 
 @app.route("/api/create-playlist/recommendations", methods=['POST'])
-def creat_rec_playlist():
-    response = Spotify.get_rec_playlist()
+def create_rec_playlist():
+    request_data = request.get_json()
+    response = Spotify.create_rec_playlist(request_data['ids'])
 
     return response
 
@@ -79,7 +80,11 @@ def get_recommendations():
     response = jsonify(response)
     return response
 
+
 ## CURRENT WIP ##
+
+
+
 @app.route("/api/openai")
 def get_ai_playlist():
     playlist = OpenAI.send_prompt(prompt=request.args.get('prompt'), limit=request.args.get('limit'))
