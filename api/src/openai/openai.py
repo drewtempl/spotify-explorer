@@ -61,6 +61,6 @@ class OpenAI_API:
             ],
         )
 
-        print(response.choices[0])
+        # print(response.choices[0])
 
         return json.loads(response.choices[0].message.function_call.arguments)
