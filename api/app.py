@@ -90,15 +90,19 @@ def get_ai_playlist():
     playlist = OpenAI.send_prompt(
         prompt=request.args.get("prompt"), limit=request.args.get("limit")
     )
-    tracks = Spotify.search(playlist["tracks"])
+    if (playlist):
+        tracks = Spotify.search(playlist["tracks"])
 
-    response = {
-        "title": playlist["title"],
-        "description": playlist["description"],
-        "tracks": tracks,
-    }
+        response = {
+            "title": playlist["title"],
+            "description": playlist["description"],
+            "tracks": tracks,
+        }
 
-    return response
+        return response
+    else:
+        return 'Internal Server Error', 500
+    
 
 
 @app.route("/api/create-playlist/openai", methods=["POST"])
@@ -107,5 +111,5 @@ def create_ai_playlist():
     response = Spotify.create_ai_playlist(
         request_data["title"], request_data["description"], request_data["track_ids"]
     )
-
+    
     return response

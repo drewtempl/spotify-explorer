@@ -44,6 +44,7 @@ export const Prompt: React.FC = () => {
         // console.log(res);
       })
       .catch((error) => {
+        setIsLoading(false);
         console.log(error);
       });
   };

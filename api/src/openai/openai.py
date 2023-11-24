@@ -64,6 +64,9 @@ class OpenAI_API:
             ],
         )
 
-        # print(response.choices[0].message.tool_calls[0].function.arguments)
-
-        return json.loads(response.choices[0].message.tool_calls[0].function.arguments)
+        try: 
+            res = json.loads(response.choices[0].message.tool_calls[0].function.arguments)
+        except:
+            return None
+        else:
+            return res
