@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
-  Box,
   Container,
   Typography,
   FormControl,
@@ -10,7 +8,6 @@ import {
   MenuItem,
   SelectChangeEvent,
   Stack,
-  CircularProgress,
 } from "@mui/material";
 import axios from "axios";
 import "../../App.css";
@@ -84,8 +81,6 @@ export const Top: React.FC = () => {
     } else {
       return element;
     }
-    // console.log(element.url);
-    // return element.url;
   };
 
   const handleCreate = () => {
@@ -99,17 +94,6 @@ export const Top: React.FC = () => {
 
   return (
     <Container>
-      {/* <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "30px",
-          textAlign: "center",
-          mt: 2,
-          mb: 1,
-        }}
-      > */}
       <Stack alignItems="center" gap={5} mt={4} mb={4}>
         <Typography variant="h4">Your Top Songs on Spotify</Typography>
         <Stack direction="row" spacing={3} alignItems="center">
@@ -134,34 +118,7 @@ export const Top: React.FC = () => {
             values={countValues}
           />
         </Stack>
-
-        {/* <Box height="50px">
-          {isLoading ? (
-            <CircularProgress />
-          ) : isInactive() ? (
-            <Button
-              sx={{ flex: "none" }}
-              variant="contained"
-              color="success"
-              href={getUrl()}
-              target="_blank"
-            >
-              View on Spotify
-            </Button>
-          ) : (
-            <Button
-              sx={{ flex: "none" }}
-              onClick={() => {
-                createPlaylist(activeTab, trackCount);
-              }}
-              variant="contained"
-            >
-              Add playlist to Spotify
-            </Button>
-          )}
-        </Box> */}
       </Stack>
-      {/* </Box> */}
       <SongItemList
         data={topTracks}
         isLoading={isLoading}
