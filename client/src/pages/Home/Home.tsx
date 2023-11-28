@@ -1,11 +1,10 @@
-import React, { SetStateAction, useState } from "react";
-import { AppBar, Button, Container, Typography } from "@mui/material";
+import React from "react";
+import { Button, Container, Typography, Stack } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import HomeProps from "./Home.types";
 
 export const Home: React.FC<HomeProps> = ({ loginHandler }: HomeProps) => {
-  const [childWindow, setChildWindow] = useState<Window | null>(null);
   const navigate = useNavigate();
 
   const getLogin = (): void => {
@@ -46,29 +45,23 @@ export const Home: React.FC<HomeProps> = ({ loginHandler }: HomeProps) => {
   };
 
   return (
-    <Container
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginTop: "30px",
-        textAlign: "center",
-      }}
-    >
-      <Typography variant="h3" gutterBottom>
-        Playlist Premier
-      </Typography>
-      <Typography variant="subtitle1" gutterBottom>
-        Create playlists from your most listened to tracks, genre
-        recommendations, and AI prompts
-      </Typography>
-      <Button
-        variant="outlined"
-        sx={{ marginTop: "20px" }}
-        onClick={() => getLoginUrl()}
-      >
-        Log in with Spotify
-      </Button>
+    <Container sx={{ mt: 15 }}>
+      <Stack alignItems="center" gap={3} textAlign="center">
+        <Typography variant="h3" gutterBottom>
+          Playlist Premier
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          Create Spotify playlists from your most played songs, genre
+          recommendations, and AI prompts
+        </Typography>
+        <Button
+          variant="outlined"
+          sx={{ marginTop: "20px" }}
+          onClick={() => getLoginUrl()}
+        >
+          Login with Spotify
+        </Button>
+      </Stack>
     </Container>
   );
 };
