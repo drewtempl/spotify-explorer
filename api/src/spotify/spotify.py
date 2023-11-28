@@ -121,3 +121,23 @@ class Spotify:
                 tracklist.append(res[0])
 
         return tracklist
+    
+    def get_user_tracks(self):
+        library = []
+
+        result = self.sp.current_user_saved_tracks(limit=50)
+        # print(len(result))
+
+        library.extend(result['items'])
+        next = self.sp.next(result)
+        # print(len(next))
+
+        while next is not None:
+            library.extend(next['items'])
+            next = self.sp.next(next)
+
+        # print(library)
+        # print(library[-1])
+        print(len(library))
+
+        return []

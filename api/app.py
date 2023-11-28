@@ -113,3 +113,9 @@ def create_ai_playlist():
     )
     
     return response
+
+@app.route("/api/user-tracks")
+def user_tracks():
+    tracks = Spotify.get_user_tracks()
+
+    return tracks
