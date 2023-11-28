@@ -102,7 +102,7 @@ class Spotify:
         self.sp.playlist_add_items(playlist["id"], track_ids)
 
         return playlist["external_urls"]["spotify"]
-    
+
     def create_ai_playlist(self, title, description, track_ids):
         playlist = self.sp.user_playlist_create(
             user=self.user["id"], name=title, description=description
@@ -121,23 +121,26 @@ class Spotify:
                 tracklist.append(res[0])
 
         return tracklist
+
+    # def get_user_tracks(self):
+    #     library = []
+
+    #     result = self.sp.current_user_saved_tracks(limit=50)
+    #     # print(len(result))
+
+    #     library.extend(result["items"])
+    #     next = self.sp.next(result)
+    #     # print(len(next))
+
+    #     while next is not None:
+    #         library.extend(next["items"])
+    #         next = self.sp.next(next)
+
+    #     # print(library)
+    #     # print(library[-1])
+    #     print(len(library))
+
+    #     return []
     
-    def get_user_tracks(self):
-        library = []
-
-        result = self.sp.current_user_saved_tracks(limit=50)
-        # print(len(result))
-
-        library.extend(result['items'])
-        next = self.sp.next(result)
-        # print(len(next))
-
-        while next is not None:
-            library.extend(next['items'])
-            next = self.sp.next(next)
-
-        # print(library)
-        # print(library[-1])
-        print(len(library))
-
-        return []
+    def get_user_tracks_total(self):
+        return self.sp.current_user_saved_tracks(limit=1)["total"]

@@ -8,6 +8,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Genre from "./pages/Genre";
 import NavBar from "./components/NavBar";
 import Prompt from "./pages/Prompt";
+import Library from "./pages/Library";
 
 const App = () => {
   const [userData, setUserData] = useState<any>();
@@ -47,6 +48,7 @@ const App = () => {
             <Route path="/top" element={<Top />}></Route>
             <Route path="/genre" element={<Genre />}></Route>
             <Route path="/prompt" element={<Prompt />}></Route>
+            <Route path="/library" element={<Library />}></Route>
           </Route>
         </Routes>
       </ThemeProvider >
