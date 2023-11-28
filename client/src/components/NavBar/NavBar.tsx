@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -12,7 +12,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import NavBarProps from "./NavBar.types";
 
 export const NavBar: React.FC<NavBarProps> = ({ userData }: NavBarProps) => {
@@ -21,14 +21,13 @@ export const NavBar: React.FC<NavBarProps> = ({ userData }: NavBarProps) => {
 
   const matches = useMediaQuery("(min-width: 600px)");
   const navigate = useNavigate();
+  const location = useLocation();
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // console.log(event);
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (event: any, path: string, reason?: string) => {
-    // console.log(reason);
     if (!reason) {
       navigate(path);
       setSelectedPage(path);
@@ -36,6 +35,10 @@ export const NavBar: React.FC<NavBarProps> = ({ userData }: NavBarProps) => {
 
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    setSelectedPage(location.pathname);
+  }, [location.pathname]);
 
   return (
     <AppBar
@@ -79,6 +82,12 @@ export const NavBar: React.FC<NavBarProps> = ({ userData }: NavBarProps) => {
                 onClick={(e) => handleClose(e, "/prompt")}
               >
                 AI Playlist Generator
+              </MenuItem>
+              <MenuItem
+                selected={selectedPage === "/"}
+                onClick={(e) => handleClose(e, "/")}
+              >
+                Logout
               </MenuItem>
             </Menu>
           </Box>
