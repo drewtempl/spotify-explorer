@@ -123,8 +123,8 @@ export const Genre: React.FC<any> = () => {
       <Container
         sx={{
           display: "flex",
-          "flex-direction": "column",
-          "align-items": "center",
+          flexDirection: "column",
+          alignItems: "center",
           textAlign: "center",
           gap: "15px",
           pt: "20px",

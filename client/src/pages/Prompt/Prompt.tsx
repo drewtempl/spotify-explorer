@@ -102,8 +102,8 @@ export const Prompt: React.FC = () => {
     <Container
       sx={{
         display: "flex",
-        "flex-direction": "column",
-        "align-items": "stretch",
+        flexDirection: "column",
+        alignItems: "stretch",
         textAlign: "center",
         gap: "30px",
         pt: "20px",

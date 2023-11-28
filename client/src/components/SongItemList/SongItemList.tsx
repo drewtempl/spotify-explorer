@@ -119,7 +119,7 @@ export const SongItemList: React.FC<SongItemListProps> = ({
                   <Paper
                     elevation={4}
                     sx={{
-                      "justify-self": "flex-end",
+                      justifySelf: "flex-end",
                       p: "5px",
                       textAlign: "center",
                       maxWidth: "fit-content",
