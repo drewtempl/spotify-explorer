@@ -13,22 +13,23 @@ class Authorization:
     def __init__(self, session=None):
         load_dotenv()
         scope = "user-read-email playlist-modify-public user-library-read user-library-modify user-top-read"
-        self.auth_manager = SpotifyOAuth(scope=scope, client_id=os.environ['CLIENT_ID'],
-                                         client_secret=os.environ['CLIENT_SECRET'],
-                                         redirect_uri=os.environ['REDIRECT_URI'],
-                                         #  proxies={'http': 'http://localhost:8000'},
-                                         open_browser=False,
-                                         cache_handler=MemoryCacheHandler())
-
+        self.auth_manager = SpotifyOAuth(
+            scope=scope,
+            client_id=os.environ["CLIENT_ID"],
+            client_secret=os.environ["CLIENT_SECRET"],
+            redirect_uri=os.environ["REDIRECT_URI"],
+            open_browser=False,
+            cache_handler=MemoryCacheHandler(),
+        )
 
     def get_url(self):
         return self.auth_manager.get_authorize_url()
-    
+
     def get_spotify(self):
         return spotipy.Spotify(self.auth_manager)
-    
 
     def get_access_token(self, code):
-        token = self.auth_manager.get_access_token(code, as_dict=True, check_cache=False)
-        return token['access_token']
-
+        token = self.auth_manager.get_access_token(
+            code, as_dict=True, check_cache=False
+        )
+        return token["access_token"]

@@ -1,19 +1,14 @@
 from flask import Flask, jsonify, request
-from src.openai import openai
-from src.spotify import spotify
-from src.spotify import authorization
+from src.openai.openai import OpenAI_API
+from src.spotify.spotify import Spotify
+from src.spotify.authorization import Authorization
 import json
 
 
 app = Flask(__name__)
-auth = authorization.Authorization()
-Spotify = spotify.Spotify()
-OpenAI = openai.OpenAI_API()
-
-
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+auth = Authorization()
+Spotify = Spotify()
+OpenAI = OpenAI_API()
 
 
 @app.route("/api/login")
